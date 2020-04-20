@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="clnn_srip.js"></script>
+    <link rel="stylesheet" type="text/css" href="clnn_srip.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+</head>
+
+<body onLoad="document.getElementById('region').options[0].selected = 'selected';">
+    <h1 id="heading">Competitive Learning Neural Networks</h1>
+    <br><br>
+    <div id="centre_button">
+
+        <select class="styleSelect" id="region">
+            <option value="default">Region</option>
+            <option value="square">Square</option>
+            <option value="circle">Circle</option>
+            <option value="triangle">Triangle</option>
+        </select>
+
+        <button class="my-button" id="generate-data" onclick="generateData()">Generate Graphs</button>
+        <button class="my-button" onclick="nextIteration()">Next Iteration</button>
+        <button class="my-button" onclick="document.location.reload(true)">Reset</button>
+        <button class="my-button" onclick="window.open('help.html','_blank')">Help</button>
+        <br><br>
+    </div>
+    <div id="flex-container">
+        <div id="data-distribution">
+            <!-- Plotly chart will be drawn inside this DIV -->
+        </div>
+        <div style="margin: -22%;">
+            <table id="one">
+                <tr>
+                    <th>Variables</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Number of data points</td>
+                    <td><input type="text" autocomplete="off" id="num_points" value='1000'></td>
+                </tr>
+                <tr>
+                    <td>Total iterations(tau1 and tau2)</td>
+                    <td><input type="text" autocomplete="off" id="tot_iter" value='100'></td>
+                </tr>
+                <tr>
+                    <td>Iteration Step Size</td>
+                    <td><input type="text" autocomplete="off" id="iter_step_size" value='1'></td>
+                </tr>
+                <tr>
+                    <td>Initial sigma value</td>
+                    <td><input type="text" autocomplete="off" id="init_sig0" value='1.0'></td>
+                </tr>
+                <tr>
+                    <td>Initial learning rate</td>
+                    <td><input type="text" autocomplete="off" id="init_learn_rate" value='0.05'></td>
+                </tr>
+                <tr>
+                    <td>Dimensions of 2D-2D(NxN)</td>
+                    <td><input type="text" autocomplete="off" id="dimension" value='6'></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div id="weight-distribution" >
+            <!-- Plotly chart will be drawn inside this DIV -->
+        </div>
+
+    </div>
+
+    <div class="container mr-5 counter-section">
+        <div class="row text-center">
+            <div class="col-md-2 counter-box">
+                <div class="icon-box"> <i class="fas fa-brain"></i></div>
+                <p class="counter" id="learn-rate">0.05</p>
+                <p>learning rate</p>
+            </div>
+            <div class="col-md-2 counter-box">
+                <div class="icon-box"> <i class="fa fa-sitemap"></i></div>
+                <p class="counter" id="iteration-number">0</p>
+                <p>iteration number</p>
+            </div>
+            <div class="col-md-2 counter-box">
+                <div class="icon-box"> <i class="fas fa-calculator"></i></div>
+                <p class="counter" id="sigma">1.0</p>
+                <p>sigma</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

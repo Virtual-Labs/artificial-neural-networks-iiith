@@ -1,0 +1,43 @@
+*{
+    font-family:sans-serif;
+  }
+  
+  html{
+     background:url(https://bbl.solutions/wp-content/uploads/2014/11/Blog-background-white-HNM-blue-gradient-blue-gear-2.png);
+     background-size: cover;
+  }
+  
+  #heading{
+      background-color: lightblue;
+      color:white;
+      text-align: center;
+      border-style: solid;
+    padding-top:10px;
+    padding-bottom:10px;
+   }
+  
+  
+  .btn {
+      border: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color:lightblue;
+      text-align: center;
+      background-origin: padding-box;
+       border-radius:10px;
+    }
+  .btn:hover{
+    background:orange;
+  }
+  
+    #centre_button{
+        text-align: center;
+    }
+  
+  #flex-container{
+    display:flex;
+    flex-direction:row-reverse;
+    justify-content:space-around;
+    align-content:center;
+  }

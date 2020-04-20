@@ -1,0 +1,55 @@
+Q) What kind of connections exist between units of same pool?
+a. inhibitory
+b. excitatory
+c. neutral
+
+Q) If one unit of a pool gets higher activation, how does that affect the activation of other units in the same pool?
+a. increases
+b. decreases
+c. remains unaffected
+
+Q) net input is dependent on which of the following?
+a. weight[i][j] only
+b. weight[i][j] and external input only
+c. weight[i][j], external input and output
+
+Q) How is the change in activation calculated?
+a. Δai = (max - ai)neti - decay(ai - rest) 
+b. Δai = (ai - min)neti - decay(ai - rest) 
+c. depends on the sign of net input 
+
+
+Q) If two units have excitatory connection, and one is activated, what is the phenomenon that both display?
+a. resonance
+b. rich get richer 
+
+Q) Is it possible for a unit to not get activated even on giving external input?
+a. No.
+b. Yes, because the gamma and decay values may be such that inhibitory power exceeds the external input.
+c. Yes, because external input alone is not enough to activate the unit.
+  
+Q) What is the change "decay" tries to make to the model?
+a. bring activation down as much as possible.
+b. bring activation up as much as possible.
+c. tends to restore the activation of the unit to its resting level.
+
+Q) What is the difference between hidden and visible units in IAC?
+a. visible can recieve external input but hidden cannot.
+b. visible affects the activation of other units whereas hidden does not.
+c. visible is shown to the user whereas hidden is not even shown to the user.
+
+Q) how many phases are involved to make sure activation of the units is synchronous?
+a. 3
+b. 2
+c. 4
+  
+Q) Which is the special pool in all pool-projection models?
+a. bias pool
+b. instance pool
+c. name pool
+  
+Q) why is there an actmax and actmin bound on activation? 
+a. to control activation in cases when estr, decay, gamma have outlying values.
+b. to control rapid change in activation
+  
+

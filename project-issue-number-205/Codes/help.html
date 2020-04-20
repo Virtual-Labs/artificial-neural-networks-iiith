@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HELP</title>
+    <link rel="stylesheet" type="text/css" href="help.css">
+</head>
+
+<body>
+    <h1 id="heading">HELP</h1>
+    <p>
+        The basic architecture of a competitive learning system is a common one. It consists of a set of hierarchically layered units in which each layer connects, via excitatory connections, with the layer immediately above it, and has inhibitory connections to units in its own layer. In the most general case, each unit in a layer receives an input from each unit in the layer immediately below it and projects to each unit in the layer immediately above it. Moreover, within a layer, the units are broken into a set of inhibitory clusters in which all elements within a cluster inhibit all other elements in the cluster. Thus the elements within a cluster at one level compete with one another to respond to the pattern appearing on the layer below. The more strongly any particular unit responds to an incoming stimulus, the more it shuts down the other members of its cluster.
+    </p>
+    <p>
+        The region confines the data points to specific shapes. The variables all affect the main formula used to update the weights which is as follows.  
+    </p>
+    <img src="../Libraries/equation.png" class="center" alt="equation-image">
+    <h3>PROCEDURE FOR USE</h3>
+        <ol id="ol">
+            <li> Select a region from the dropdown menu. </li>
+            <br>
+            <li> Change the number of data points if you wish to(range: 1-2000) (only integer).</li>
+            <br>
+            <li> Change the number of total iterations if you wish to(range: 100-3000) (only integer).</li>
+            <br>
+            <li> Change the iteration step size if you wish to(range: 1-500) (only integer).</li>
+            <br>
+            <li> Change the initial sigma value if you wish to(range: 0.1-1.9).</li>
+            <br>
+            <li> Change the initial learning rate if you wish to(range: 0.001-1).</li>
+            <br>
+            <li> Change the dimensions (NxN) if you wish to(range: 3-11) (only integer).</li>
+            <br>
+            <li> Click on "generate graphs" to generate the graphs for weights(on the left) and for data(on the right).</li>
+            <br>
+            <li> Click on next iteration to perform the number of iterations as specified in the "Iteration Step Size" variable by you.</li>
+            <br>
+            <li>  Observe how the number of iterations, learning rate and sigma value have changed after iterations begin.</li>
+            <br>
+            <li> Observe the change in the shape of the weights distribution. This is feature mapping.</li>
+            <br>
+            <li> You may change the iteration step size if you wish to speed up the iterations or slower it down.</li>
+            <br>
+            <li> Click on next iteration after changing iteration step size.</li>
+            <br>
+            <li> Click on "Reset" to start with another set of random data and weights.</li>
+            <br>
+            <li> Tweak the variables and observe the changes that come up.</li>
+        </ol>
+    <h3>FORMULAE USED</h3>
+    <p>
+        j is an index from 0 to number of data selected at random.<br><br>
+
+distance[i]=weights[i]-data[j]<br><br>
+
+winning neuron is found by finding neuron with<br> 
+minimum distance=mindist<br>
+index=mindistind<br><br>
+
+ri=index[mindistind]<br>
+newdist[i] = 1/(sqrt(2*piConst)*sigT).*exp( sum(( (index -  ri, K,1)) .^2) ,2)/(-2*sigT)) * etaT<br>
+where sigT=sigma <br>
+      etaT=learning rate<br><br>
+
+weights[i]=weights[i]+newdist[i]*(data[i]-weights[i])<br><br>
+
+At the end of each iteration,<br>
+sigT = sig0*exp(-i/tau1);<br>
+etaT = eta0*exp(-i/tau2);<br><br><br>
+For further information, refer this <a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookch7.html" target="_blank">PDF</a>
+  </p>
+</body>
+
+</html>

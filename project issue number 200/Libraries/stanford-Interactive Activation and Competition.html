@@ -1,0 +1,1136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><title>2 Interactive Activation and Competition</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- 2,frames,html --> 
+<meta name="src" content="handbook.tex"> 
+<meta name="date" content="2015-12-16 23:36:00"> 
+<link rel="stylesheet" type="text/css" href="stanford-Interactive%20Activation%20and%20Competition_files/handbook.css"> 
+</head><body>
+   <!--l. 1--><div class="crosslinks"><p class="noindent"><a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookch4.html"><span class="cmsy-7">&#8658;</span></a><a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookch2.html"><span class="cmsy-7">&#8656;</span></a><a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbook3.html#handbookch3.html"><span class="cmsy-7">&#8657;</span></a></p></div>
+   <h2 class="chapterHead"><span class="titlemark">Chapter&nbsp;2</span><br><a id="x7-190002"></a>Interactive Activation and Competition</h2><div class="chapterTOCS">
+   &nbsp;<span class="sectionToc">2.1 <a href="#x7-200002.1">BACKGROUND</a></span>
+<br>   &nbsp;&nbsp;<span class="subsectionToc">2.1.1 <a href="#x7-210002.1.1">How Competition Works</a></span>
+<br>   &nbsp;&nbsp;<span class="subsectionToc">2.1.2 <a href="#x7-220002.1.2">Resonance</a></span>
+<br>   &nbsp;&nbsp;<span class="subsectionToc">2.1.3 <a href="#x7-230002.1.3">Hysteresis and Blocking</a></span>
+<br>   &nbsp;&nbsp;<span class="subsectionToc">2.1.4 <a href="#x7-240002.1.4">Grossberg’s Analysis of Interactive Activation and Competition Processes</a></span>
+<br>   &nbsp;<span class="sectionToc">2.2 <a href="#x7-250002.2">THE IAC MODEL</a></span>
+<br>   &nbsp;&nbsp;<span class="subsectionToc">2.2.1 <a href="#x7-260002.2.1">Architecture</a></span>
+<br>   &nbsp;&nbsp;<span class="subsectionToc">2.2.2 <a href="#x7-270002.2.2">Visible and Hidden Units</a></span>
+<br>   &nbsp;&nbsp;<span class="subsectionToc">2.2.3 <a href="#x7-280002.2.3">Activation Dynamics</a></span>
+<br>   &nbsp;&nbsp;<span class="subsectionToc">2.2.4 <a href="#x7-290002.2.4">Parameters</a></span>
+<br>   &nbsp;&nbsp;<span class="subsectionToc">2.2.5 <a href="#x7-300002.2.5">Pools and Projections</a></span>
+<br>   &nbsp;&nbsp;<span class="subsectionToc">2.2.6 <a href="#x7-310002.2.6">The Core Routines</a></span>
+<br>   &nbsp;<span class="sectionToc">2.3 <a href="#x7-320002.3">EXERCISES</a></span>
+   </div>
+<!--l. 3--><p class="indent">   Our own explorations of parallel distributed processing began with the
+use of interactive activation and competition mechanisms of the kind we
+will examine in this chapter. We have used these kinds of mechanisms to
+model visual word recognition (<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XMcClellandRumelhart81">McClelland and Rumelhart</a>,&nbsp;<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XMcClellandRumelhart81">1981</a>;&nbsp;<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XRumelhartMcClelland82">Rumelhart
+and McClelland</a>,&nbsp;<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XRumelhartMcClelland82">1982</a>) and to model the retrieval of general and specific
+information from stored knowledge of individual exemplars (<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XMcClelland81">McClelland</a>,&nbsp;<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XMcClelland81">1981</a>), as
+described in <span class="cmti-10">PDP:1</span>. In this chapter, we describe some of the basic mathematical
+observations behind these mechanisms, and then we introduce the reader
+to a specific model that implements the retrieval of general and specific
+information using the “Jets and Sharks” example discussed in <span class="cmti-10">PDP:1 </span>(pp.
+25-31).
+<!--l. 15--></p><p class="indent">   After describing the specific model, we will introduce the program in which this
+model is implemented: the <span class="cmbx-10">iac </span>program (for interactive activation and competition).
+The description of how to use this program will be quite extensive; it is intended to
+serve as a general introduction to the entire package of programs since the
+user interface and most of the commands and auxiliary files are common
+to all of the programs. After describing how to use the program, we will
+present several exercises, including an opportunity to work with the Jets
+and Sharks example and an opportunity to explore an interesting variant of
+the basic model, based on dynamical assumptions used by Grossberg (e.g.,
+(<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XGrossberg78">Grossberg</a>,&nbsp;<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XGrossberg78">1978</a>)).
+   </p><h3 class="sectionHead"><span class="titlemark">2.1   </span> <a id="x7-200002.1"></a>BACKGROUND</h3>
+<!--l. 29--><p class="noindent">The study of interactive activation and competition mechanisms has a long history.
+They have been extensively studied by Grossberg. A useful introduction to
+the mathematics of such systems is provided in <a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XGrossberg78">Grossberg</a>&nbsp;(<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XGrossberg78">1978</a>). Related
+mechanisms have been studied by a number of other investigators, including
+                                                                  
+
+                                                                  
+<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XLevin76">Levin</a>&nbsp;(<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XLevin76">1976</a>), whose work was instrumental in launching our exploration of PDP
+mechanisms.
+<!--l. 36--></p><p class="indent">   An interactive activation and competition network (hereafter, <span class="cmti-10">IAC network</span>)
+consists of a collection of processing units organized into some number of competitive
+pools. There are excitatory connections among units in different pools and inhibitory
+connections among units within the same pool. The excitatory connections between
+pools are generally bidirectional, thereby making the processing <span class="cmti-10">interactive </span>in the
+sense that processing in each pool both influences and is influenced by processing in
+other pools. Within a pool, the inhibitory connections are usually assumed to run
+from each unit in the pool to every other unit in the pool. This implements a kind of
+competition among the units such that the unit or units in the pool that
+receive the strongest activation tend to drive down the activation of the other
+units.
+<!--l. 50--></p><p class="indent">   The units in an IAC network take on continuous activation values between a
+maximum and minimum value, though their output—the signal that they
+transmit to other units—is not necessarily identical to their activation. In
+our work, we have tended to set the output of each unit to the activation
+of the unit minus the <span class="cmti-10">threshold </span>as long as the difference is positive; when
+the activation falls below threshold, the output is set to 0. Without loss of
+generality, we can set the threshold to 0; we will follow this practice throughout
+the rest of this chapter. A number of other output functions are possible;
+<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XGrossberg78">Grossberg</a>&nbsp;(<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XGrossberg78">1978</a>) describes a number of other possibilities and considers their various
+merits.
+<!--l. 62--></p><p class="indent">   The activations of the units in an IAC network evolve gradually over time. In the
+mathematical idealization of this class of models, we think of the activation process
+as completely continuous, though in the simulation modeling we approximate this
+ideal by breaking time up into a sequence of discrete steps. Units in an IAC network
+change their activation based on a function that takes into account both the current
+activation of the unit and the net input to the unit from other units or from outside
+the network. The net input to a particular unit (say, unit <span class="cmmi-10">i</span>) is the same in
+almost all the models described in this volume: it is simply the sum of the
+influences of all of the other units in the network plus any external input from
+outside the network. The influence of some other unit (say, unit <span class="cmmi-10">j</span>) is just
+the product of that unit’s output, <span class="cmmi-10">output</span><sub><span class="cmmi-7">j</span></sub>, times the strength or weight of
+the connection to unit <span class="cmmi-10">i </span>from unit <span class="cmmi-10">j</span>. Thus the net input to unit <span class="cmmi-10">i </span>is given
+by
+   </p><table class="equation"><tbody><tr><td><a id="x7-20001r1"></a>
+   <center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook0x.png" alt="      &#8721;
+neti =   wijoutputj + extinputi.
+       j
+" class="math-display"></center></td><td class="equation-label">(2.1)</td></tr></tbody></table>
+<!--l. 79--><p class="nopar">
+In the IAC model, <span class="cmmi-10">output</span><sub><span class="cmmi-7">j</span></sub> = [<span class="cmmi-10">a</span><sub><span class="cmmi-7">j</span></sub>]<sup><span class="cmr-7">+</span></sup>. Here, <span class="cmmi-10">a</span><sub><span class="cmmi-7">j</span></sub> refers to the activation of unit <span class="cmmi-10">j</span>, and the
+expression [<span class="cmmi-10">a</span><sub><span class="cmmi-7">j</span></sub>]<sup><span class="cmr-7">+</span></sup> has value <span class="cmmi-10">a</span><sub><span class="cmmi-7">j</span></sub> for all <span class="cmmi-10">a</span><sub><span class="cmmi-7">j</span></sub> <span class="cmmi-10">&gt; </span>0; otherwise its value is 0. The
+index <span class="cmmi-10">j </span>ranges over all of the units with connections to unit <span class="cmmi-10">i</span>. In general the
+weights can be positive or negative, for excitatory or inhibitory connections,
+respectively.
+<!--l. 87--></p><p class="indent">   Human behavior is highly variable and IAC models as described thus far are
+completely deterministic. In some IAC models, such as the interactive activation
+model of letter perception (<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XMcClellandRumelhart81">McClelland and Rumelhart</a>,&nbsp;<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XMcClellandRumelhart81">1981</a>) these deterministic
+activation values are mapped to probabilities. However, it became clear in detailed
+attempts to fit this model to data that intrinsic variability in processing and/or
+variability in the input to a network from trial to trial provided better mechanisms
+for allowing the models to provide detailed fits to data. <a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XMcClelland91">McClelland</a>&nbsp;(<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XMcClelland91">1991</a>)
+found that injecting normally distributed random noise into the net input to
+each unit on each time cycle allowed such networks to fit experimental data
+from experiments on the joint effects of context and stimulus information
+on phoneme or letter perception. Including this in the equation above, we
+have:
+   </p><table class="equation"><tbody><tr><td><a id="x7-20002r2"></a>
+   <center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook1x.png" alt="      &#8721;
+neti =   wijoutputj + extinputi + normal(0,noise)
+       j
+" class="math-display"></center></td><td class="equation-label">(2.2)</td></tr></tbody></table>
+<!--l. 103--><p class="nopar">
+<!--l. 105--></p><p class="indent">   Where <span class="cmmi-10">normal</span>(0<span class="cmmi-10">,noise</span>) is a sample chosen from the standard normal distribution
+with mean 0 and standard deviation of <span class="cmmi-10">noise</span>. For simplicity, <span class="cmmi-10">noise </span>is set to zero in
+many IAC network models.
+<!--l. 109--></p><p class="indent">   Once the net input to a unit has been computed, the resulting change in the
+activation of the unit is as follows:
+<!--l. 112--></p><p class="indent">   If (<span class="cmmi-10">net</span><sub><span class="cmmi-7">i</span></sub> <span class="cmmi-10">&gt; </span>0)<span class="cmmi-10">,</span>
+   </p><center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook2x.png" alt="&#916;ai = (max - ai)neti - decay(ai - rest).
+" class="math-display"></center>
+<!--l. 115--><p class="nopar">
+<!--l. 117--></p><p class="indent">   Otherwise,
+   </p><center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook3x.png" alt="&#916;ai = (ai - min)neti - decay(ai - rest).
+" class="math-display"></center>
+<!--l. 120--><p class="nopar">
+Note that in this equation, <span class="cmmi-10">max</span>, <span class="cmmi-10">min</span>, <span class="cmmi-10">rest</span>, and <span class="cmmi-10">decay </span>are all parameters. In
+general, we choose <span class="cmmi-10">max </span>= 1, <span class="cmmi-10">min </span><span class="cmsy-10">&#8804; </span><span class="cmmi-10">rest </span><span class="cmsy-10">&#8804; </span>0, and <span class="cmmi-10">decay </span>between 0 and
+1. Note also that <span class="cmmi-10">a</span><sub><span class="cmmi-7">i</span></sub> is assumed to start, and to stay, within the interval
+[<span class="cmmi-10">min,max</span>].
+<!--l. 126--></p><p class="indent">   Suppose we imagine the input to a unit remains fixed and examine what will
+happen across time in the equation for &#916;<span class="cmmi-10">a</span><sub><span class="cmmi-7">i</span></sub>. For specificity, let’s just suppose the net
+input has some fixed, positive value. Then we can see that &#916;<span class="cmmi-10">a</span><sub><span class="cmmi-7">i</span></sub> will get smaller and
+smaller as the activation of the unit gets greater and greater. For some values of
+the unit’s activation, &#916;<span class="cmmi-10">a</span><sub><span class="cmmi-7">i</span></sub> will actually be negative. In particular, suppose
+that the unit’s activation is equal to the resting level. Then &#916;<span class="cmmi-10">a</span><sub><span class="cmmi-7">i</span></sub> is simply
+(<span class="cmmi-10">max </span><span class="cmsy-10">- </span><span class="cmmi-10">rest</span>)<span class="cmmi-10">net</span><sub><span class="cmmi-7">i</span></sub>. Now suppose that the unit’s activation is equal to <span class="cmmi-10">max</span>, its
+maximum activation level. Then &#916;<span class="cmmi-10">a</span><sub><span class="cmmi-7">i</span></sub> is simply (<span class="cmsy-10">-</span><span class="cmmi-10">decay</span>)(<span class="cmmi-10">max </span><span class="cmsy-10">- </span><span class="cmmi-10">rest</span>). Between
+these extremes there is an equilibrium value of <span class="cmmi-10">a</span><sub><span class="cmmi-7">i</span></sub> at which &#916;<span class="cmmi-10">a</span><sub><span class="cmmi-7">i</span></sub> is 0. We
+can find what the equilibrium value is by setting &#916;<span class="cmmi-10">a</span><sub><span class="cmmi-7">i</span></sub> to 0 and solving for
+<span class="cmmi-10">a</span><sub><span class="cmmi-7">i</span></sub>:
+   </p><center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook4x.png" alt="0 = (max - ai)neti - decay(ai - rest)
+" class="math-display"></center>
+<!--l. 142--><p class="nopar">
+   </p><center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook5x.png" alt="= (max)(neti)+ (rest)(decay)- ai(neti + decay)
+" class="math-display"></center>
+<!--l. 145--><p class="nopar">
+   </p><table class="equation"><tbody><tr><td><a id="x7-20003r3"></a>
+                                                                  
+
+                                                                  
+   <center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook6x.png" alt="a = (max-)(neti)-+(rest)(decay)
+ i         neti + decay
+" class="math-display"></center></td><td class="equation-label">(2.3)</td></tr></tbody></table>
+<!--l. 148--><p class="nopar">
+<!--l. 150--></p><p class="indent">   Using <span class="cmmi-10">max </span>= 1 and <span class="cmmi-10">rest </span>= 0, this simplifies to
+   </p><table class="equation"><tbody><tr><td><a id="x7-20004r4"></a>
+   <center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook7x.png" alt="ai = ---neti----
+     neti + decay
+" class="math-display"></center></td><td class="equation-label">(2.4)</td></tr></tbody></table>
+<!--l. 153--><p class="nopar">
+<!--l. 155--></p><p class="noindent">What the equation indicates, then, is that the activation of the unit will
+reach equilibrium when its value becomes equal to the ratio of the net input
+divided by the net input plus the decay. Note that in a system where the
+activations of other units—and thus of the net input to any particular unit—are
+also continually changing, there is no guarantee that activations will ever
+completely stabilize—although in practice, as we shall see, they often seem
+to.
+<!--l. 163--></p><p class="indent">   Equation 3 indicates that the equilibrium activation of a unit will always increase
+as the net input increases; however, it can never exceed 1 (or, in the general case,
+<span class="cmmi-10">max</span>) as the net input grows very large. Thus, <span class="cmmi-10">max </span>is indeed the upper bound on the
+activation of the unit. For small values of the net input, the equation is
+approximately linear since <span class="cmmi-10">x&#8725;</span>(<span class="cmmi-10">x </span>+ <span class="cmmi-10">c</span>) is approximately equal to <span class="cmmi-10">x&#8725;c </span>for <span class="cmmi-10">x </span>small
+enough.
+<!--l. 171--></p><p class="indent">   We can see the decay term in Equation 3 as acting as a kind of restoring force
+that tends to bring the activation of the unit back to 0 (or to <span class="cmmi-10">rest</span>, in the general
+case). The larger the value of the decay term, the stronger this force is, and therefore
+the lower the activation level will be at which the activation of the unit will reach
+equilibrium. Indeed, we can see the decay term as scaling the net input if we rewrite
+the equation as
+   </p><table class="equation"><tbody><tr><td><a id="x7-20005r5"></a>
+                                                                  
+
+                                                                  
+   <center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook8x.png" alt="a  = --neti&#8725;decay---
+ i   (neti&#8725;decay)+ 1
+" class="math-display"></center></td><td class="equation-label">(2.5)</td></tr></tbody></table>
+<!--l. 180--><p class="nopar">
+<!--l. 182--></p><p class="noindent">When the net input is equal to the decay, the activation of the unit is 0.5 (in the
+general case, the value is (<span class="cmmi-10">max </span>+ <span class="cmmi-10">rest</span>)<span class="cmmi-10">&#8725;</span>2). Because of this, we generally scale the net
+inputs to the units by a strength constant that is equal to the decay. Increasing the
+value of this strength parameter or decreasing the value of the decay increases the
+equilibrium activation of the unit.
+<!--l. 189--></p><p class="indent">   In the case where the net input is negative, we get entirely analogous
+results:
+   </p><table class="equation"><tbody><tr><td><a id="x7-20006r6"></a>
+   <center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook9x.png" alt="a = (min)(neti)--(decay)(rest)
+ i         neti - decay
+" class="math-display"></center></td><td class="equation-label">(2.6)</td></tr></tbody></table>
+<!--l. 192--><p class="nopar">
+<!--l. 194--></p><p class="noindent">Using <span class="cmmi-10">rest </span>= 0, this simplifies to
+   </p><table class="equation"><tbody><tr><td><a id="x7-20007r7"></a>
+   <center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook10x.png" alt="a =  (min)(neti)-
+ i   neti - decay
+" class="math-display"></center></td><td class="equation-label">(2.7)</td></tr></tbody></table>
+<!--l. 197--><p class="nopar">
+<!--l. 199--></p><p class="noindent">This equation is a bit confusing because <span class="cmmi-10">net</span><sub><span class="cmmi-7">i</span></sub> and <span class="cmmi-10">min </span>are both negative quantities. It
+becomes somewhat clearer if we use <span class="cmmi-10">amin </span>(the absolute value of <span class="cmmi-10">min</span>) and <span class="cmmi-10">anet</span><sub><span class="cmmi-7">i</span></sub> (the
+absolute value of <span class="cmmi-10">net</span><sub><span class="cmmi-7">i</span></sub>). Then we have
+   </p><table class="equation"><tbody><tr><td><a id="x7-20008r8"></a>
+   <center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook11x.png" alt="      (amin-)(aneti)
+ai = - aneti +decay
+" class="math-display"></center></td><td class="equation-label">(2.8)</td></tr></tbody></table>
+<!--l. 205--><p class="nopar">
+<!--l. 207--></p><p class="noindent">What this last equation brings out is that the equilibrium activation value obtained
+for a negative net input is scaled by the magnitude of the minimum (<span class="cmmi-10">amin</span>).
+Inhibition both acts more quickly and drives activation to a lower final level when
+<span class="cmmi-10">min </span>is farther below 0.
+<!--l. 213--></p><p class="noindent">
+   </p><h4 class="subsectionHead"><span class="titlemark">2.1.1   </span> <a id="x7-210002.1.1"></a>How Competition Works</h4>
+<!--l. 214--><p class="noindent">So far we have been considering situations in which the net input to a unit
+is fixed and activation evolves to a fixed or stable point. The interactive
+activation and competition process, however, is more complicated than this
+because the net input to a unit changes as the unit and other units in the
+same pool simultaneously respond to their net inputs. One effect of this
+is to amplify differences in the net inputs of units. Consider two units <span class="cmmi-10">a</span>
+and <span class="cmmi-10">b </span>that are mutually inhibitory, and imagine that both are receiving
+some excitatory input from outside but that the excitatory input to <span class="cmmi-10">a </span>(<span class="cmmi-10">e</span><sub><span class="cmmi-7">a</span></sub>) is
+stronger than the excitatory input to <span class="cmmi-10">b </span>(<span class="cmmi-10">e</span><sub><span class="cmmi-7">b</span></sub>). Let <span class="cmmi-10">&#947; </span>represent the strength
+of the inhibition each unit exerts on the other. Then the net input to <span class="cmmi-10">a</span>
+is
+   </p><table class="equation"><tbody><tr><td><a id="x7-21001r9"></a>
+                                                                  
+
+                                                                  
+   <center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook12x.png" alt="net = e  - &#947;(output)
+   a   a          b
+" class="math-display"></center></td><td class="equation-label">(2.9)</td></tr></tbody></table>
+<!--l. 228--><p class="nopar">
+and the net input to <span class="cmmi-10">b </span>is
+   </p><table class="equation"><tbody><tr><td><a id="x7-21002r10"></a>
+   <center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook13x.png" alt="netb = eb - &#947;(outputa)
+" class="math-display"></center></td><td class="equation-label">(2.10)</td></tr></tbody></table>
+<!--l. 232--><p class="nopar">
+As long as the activations stay positive, <span class="cmmi-10">output</span><sub><span class="cmmi-7">i</span></sub> = <span class="cmmi-10">a</span><sub><span class="cmmi-7">i</span></sub>, so we get
+   </p><table class="equation"><tbody><tr><td><a id="x7-21003r11"></a>
+   <center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook14x.png" alt="neta = ea - &#947;ab
+" class="math-display"></center></td><td class="equation-label">(2.11)</td></tr></tbody></table>
+<!--l. 236--><p class="nopar">
+and
+   </p><table class="equation"><tbody><tr><td><a id="x7-21004r12"></a>
+                                                                  
+
+                                                                  
+   <center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook15x.png" alt="netb = eb - &#947;aa
+" class="math-display"></center></td><td class="equation-label">(2.12)</td></tr></tbody></table>
+<!--l. 240--><p class="nopar">
+<!--l. 242--></p><p class="noindent">From these equations we can easily see that <span class="cmmi-10">b </span>will tend to be at a disadvantage since
+the stronger excitation to <span class="cmmi-10">a </span>will tend to give <span class="cmmi-10">a </span>a larger initial activation, thereby
+allowing it to inhibit <span class="cmmi-10">b </span>more than <span class="cmmi-10">b </span>inhibits <span class="cmmi-10">a</span>. The end result is a phenomenon that
+<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XGrossberg76">Grossberg</a>&nbsp;(<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XGrossberg76">1976</a>) has called “the rich get richer” effect: Units with slight initial
+advantages, in terms of their external inputs, amplify this advantage over their
+competitors.
+<!--l. 250--></p><p class="noindent">
+   </p><h4 class="subsectionHead"><span class="titlemark">2.1.2   </span> <a id="x7-220002.1.2"></a>Resonance</h4>
+<!--l. 252--><p class="noindent">Another effect of the interactive activation process has been called “resonance” by
+<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XGrossberg78">Grossberg</a>&nbsp;(<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XGrossberg78">1978</a>). If unit <span class="cmmi-10">a </span>and unit <span class="cmmi-10">b </span>have mutually excitatory connections, then
+once one of the units becomes active, they will tend to keep each other active.
+Activations of units that enter into such mutually excitatory interactions are
+therefore sustained by the network, or “resonate” within it, just as certain
+frequencies resonate in a sound chamber. In a network model, depending on
+parameters, the resonance can sometimes be strong enough to overcome the effects of
+decay. For example, suppose that two units, <span class="cmmi-10">a </span>and <span class="cmmi-10">b</span>, have bidirectional, excitatory
+connections with strengths of 2 x <span class="cmmi-10">decay </span>. Suppose that we set each unit’s activation
+at 0.5 and then remove all external input and see what happens. The activations will
+stay at 0.5 indefinitely because
+   </p><center class="par-math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook16x.png" alt="&#916;a  = (1- a )net - (decay)a
+   a       a    a         a
+" class="par-math-display"></center>
+<!--l. 268--><p class="nopar">
+   </p><center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook17x.png" alt="= (1 - 0.5)(2)(decay)(0.5)- (decay)(0.5)
+" class="math-display"></center>
+<!--l. 271--><p class="nopar">
+                                                                  
+
+                                                                  
+   </p><center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook18x.png" alt="= (0.5)(2)(decay)(0.5)- (decay)(0.5)
+" class="math-display"></center>
+<!--l. 274--><p class="nopar">
+   </p><center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook19x.png" alt="= 0
+" class="math-display"></center>
+<!--l. 277--><p class="nopar">
+<!--l. 279--></p><p class="noindent">Thus, IAC networks can use the mutually excitatory connections between units in
+different pools to sustain certain input patterns that would otherwise decay
+away rapidly in the absence of continuing input. The interactive activation
+process can also activate units that were not activated directly by external
+input. We will explore these effects more fully in the exercises that are given
+later.
+<!--l. 287--></p><p class="noindent">
+   </p><h4 class="subsectionHead"><span class="titlemark">2.1.3   </span> <a id="x7-230002.1.3"></a>Hysteresis and Blocking</h4>
+<!--l. 289--><p class="noindent">Before we finish this consideration of the mathematical background of interactive
+activation and competition systems, it is worth pointing out that the rate of
+evolution towards the eventual equilibrium reached by an IAC network, and even
+the state that is reached, is affected by initial conditions. Thus if at time 0
+we force a particular unit to be on, this can have the effect of slowing the
+activation of other units. In extreme cases, forcing a unit to be on can totally
+block others from becoming activated at all. For example, suppose we have
+two units, <span class="cmmi-10">a </span>and <span class="cmmi-10">b</span>, that are mutually inhibitory, with inhibition parameter
+<span class="cmmi-10">gamma </span>equal to 2 times the strength of the decay, and suppose we set the
+activation of one of these units—unit <span class="cmmi-10">a</span>—to 0.5. Then the net input to the
+other—unit <span class="cmmi-10">b</span>—at this point will be (-0.5) (2) (<span class="cmmi-10">decay</span>) = <span class="cmsy-10">-</span><span class="cmmi-10">decay</span>. If we then
+supply external excitatory input to the two units with strength equal to the
+decay, this will maintain the activation of unit <span class="cmmi-10">a </span>at 0.5 and will fail to excite
+<span class="cmmi-10">b </span>since its net input will be 0. The external input to <span class="cmmi-10">b </span>is thereby blocked
+from having its normal effect. If external input is withdrawn from <span class="cmmi-10">a</span>, its
+activation will gradually decay (in the absence of any strong resonances involving
+<span class="cmmi-10">a</span>) so that <span class="cmmi-10">b </span>will gradually become activated. The first effect, in which the
+activation of <span class="cmmi-10">b </span>is completely blocked, is an extreme form of a kind of network
+behavior known as hysteresis (which means “delay”); prior states of networks
+tend to put them into states that can delay or even block the effects of new
+inputs.
+                                                                  
+
+                                                                  
+<!--l. 314--></p><p class="indent">   Because of hysteresis effects in networks, various investigators have suggested that
+new inputs may need to begin by generating a “clear signal,” often implemented as a
+wave of inhibition. Such ideas have been proposed by various investigators as an
+explanation of visual masking effects (see, e.g., (<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XWeisstein75">Weisstein et&nbsp;al.</a>,&nbsp;<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XWeisstein75">1975</a>)) and play a
+prominent role in Grossberg’s theory of learning in neural networks, see
+<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XGrossberg80">Grossberg</a>&nbsp;(<a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookli2.html#XGrossberg80">1980</a>).
+<!--l. 321--></p><p class="noindent">
+   </p><h4 class="subsectionHead"><span class="titlemark">2.1.4   </span> <a id="x7-240002.1.4"></a>Grossberg’s Analysis of Interactive Activation and Competition
+Processes</h4>
+<!--l. 323--><p class="noindent">Throughout this section we have been referring to Grossberg’s studies of
+what we are calling interactive activation and competition mechanisms. In
+fact, he uses a slightly different activation equation than the one we have
+presented here (taken from our earlier work with the interactive activation
+model of word recognition). In Grossberg’s formulation, the excitatory and
+inhibitory inputs to a unit are treated separately. The excitatory input (<span class="cmmi-10">e</span>) drives
+the activation of the unit up toward the maximum, whereas the inhibitory
+input (<span class="cmmi-10">i</span>) drives the activation back down toward the minimum. As in our
+formulation, the decay tends to restore the activation of the unit to its resting
+level.
+   </p><table class="equation"><tbody><tr><td><a id="x7-24001r13"></a>
+   <center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook20x.png" alt="&#916;a = (max - a)e- (a- min )i- decay(a- rest)
+" class="math-display"></center></td><td class="equation-label">(2.13)</td></tr></tbody></table>
+<!--l. 336--><p class="nopar">
+<!--l. 338--></p><p class="indent">   Grossberg’s formulation has the advantage of allowing a single equation to govern
+the evolution of processing instead of requiring an <span class="cmti-10">if  </span>statement to intervene to
+determine which of two equations holds. It also has the characteristic that the
+direction the input tends to drive the activation of the unit is affected by
+the current activation. In our formulation, net positive input will always
+excite the unit and net negative input will always inhibit it. In Grossberg’s
+formulation, the input is not lumped together in this way. As a result, the effect
+of a given input (particular values of <span class="cmmi-10">e </span>and <span class="cmmi-10">i</span>) can be excitatory when the
+unit’s activation is low and inhibitory when the unit’s activation is high.
+                                                                  
+
+                                                                  
+Furthermore, at least when <span class="cmmi-10">min </span>has a relatively small absolute value compared to
+<span class="cmmi-10">max</span>, a given amount of inhibition will tend to exert a weaker effect on a
+unit starting at rest. To see this, we will simplify and set <span class="cmmi-10">max </span>= 1<span class="cmmi-10">.</span>0 and
+<span class="cmmi-10">rest </span>= 0<span class="cmmi-10">.</span>0. By assumption, the unit is at rest so the above equation reduces
+to
+   </p><table class="equation"><tbody><tr><td><a id="x7-24002r14"></a>
+   <center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook21x.png" alt="&#916;a = (1)e- (amin)(i)
+" class="math-display"></center></td><td class="equation-label">(2.14)</td></tr></tbody></table>
+<!--l. 356--><p class="nopar">
+where <span class="cmmi-10">amin </span>is the absolute value of <span class="cmmi-10">min </span>as above. This is in balance only if
+<span class="cmmi-10">i </span>= <span class="cmmi-10">e&#8725;amin</span>.
+<!--l. 360--></p><p class="indent">   Our use of the net input rule was based primarily on the fact that we found it
+easier to follow the course of simulation events when the balance of excitatory
+and inhibitory influences was independent of the activation of the receiving
+unit. However, this by no means indicates that our formulation is superior
+computationally. Therefore we have made Grossberg’s update rule available as an
+option in the <span class="cmbx-10">iac </span>program. Note that in the Grossberg version, noise is added into the
+excitatory input, when the <span class="cmmi-10">noise </span>standard deviation parameter is greater than
+0.
+<!--l. 370--></p><p class="noindent">
+   </p><h3 class="sectionHead"><span class="titlemark">2.2   </span> <a id="x7-250002.2"></a>THE IAC MODEL</h3>
+<!--l. 371--><p class="noindent">The IAC model provides a discrete approximation to the continuous interactive
+activation and competition processes that we have been considering up to now. We
+will consider two variants of the model: one that follows the interactive activation
+dynamics from our earlier work and one that follows the formulation offered by
+Grossberg.
+<!--l. 377--></p><p class="indent">   The IAC model is part of the part of the PDPTool Suite of programs, which run
+under MATLAB. A document describing the overall structure of the PDPtool called
+the <span class="cmti-10">PDPTool User Guide </span>should be consulted to get a general understanding of the
+structure of the PDPtool system.
+<!--l. 382--></p><p class="indent">   Here we describe key characteristics of the IAC model software implementation.
+Specifics on how to run exercises using the IAC model are provided as the exercises
+are introduced below.
+                                                                  
+
+                                                                  
+<!--l. 386--></p><p class="noindent">
+   </p><h4 class="subsectionHead"><span class="titlemark">2.2.1   </span> <a id="x7-260002.2.1"></a>Architecture</h4>
+<!--l. 388--><p class="noindent">The IAC model consists of several units, divided into <span class="cmti-10">pools</span>. In each pool, all the units
+are assumed to be mutually inhibitory. Between pools, units may have excitatory
+connections. In iac models, the connections are benerally bidirectionally symmetric,
+so that whenever there is an excitatory connection from unit <span class="cmmi-10">i </span>to unit <span class="cmmi-10">j</span>, there is also
+an equal excitatory connection from unit <span class="cmmi-10">j </span>back to unit <span class="cmmi-10">i</span>. IAC networks can,
+however, be created in which connections violate these characteristics of the
+model.
+<!--l. 398--></p><p class="noindent">
+   </p><h4 class="subsectionHead"><span class="titlemark">2.2.2   </span> <a id="x7-270002.2.2"></a>Visible and Hidden Units</h4>
+<!--l. 399--><p class="noindent">In an IAC network, there are generally two classes of units: those that can receive
+direct input from outside the network and those that cannot. The first kind of units
+are called <span class="cmti-10">visible </span>units; the latter are called <span class="cmti-10">hidden </span>units. Thus in the IAC model the
+user may specify a pattern of inputs to the visible units, but by assumption
+the user is not allowed to specify external input to the hidden units; their
+net input is based only on the outputs from other units to which they are
+connected.
+<!--l. 408--></p><p class="noindent">
+   </p><h4 class="subsectionHead"><span class="titlemark">2.2.3   </span> <a id="x7-280002.2.3"></a>Activation Dynamics</h4>
+<!--l. 409--><p class="noindent">Time is not continuous in the IAC model (or any of our other simulation models),
+but is divided into a sequence of discrete steps, or <span class="cmti-10">cycles</span>. Each cycle begins
+with all units having an activation value that was determined at the end of
+the preceding cycle. First, the inputs to each unit are computed. Then the
+activations of the units are updated. The two-phase procedure ensures that the
+updating of the activations of the units is effectively synchronous; that is,
+nothing is done with the new activation of any of the units until all have been
+updated.
+<!--l. 419--></p><p class="indent">   The discrete time approximation can introduce instabilities if activation steps on
+each cycle are large. This problem is eliminated, and the approximation to the
+continuous case is generally closer, when activation steps are kept small on each
+cycle.
+<!--l. 424--></p><p class="noindent">
+   </p><h4 class="subsectionHead"><span class="titlemark">2.2.4   </span> <a id="x7-290002.2.4"></a>Parameters</h4>
+<!--l. 425--><p class="noindent">In the IAC model there are several parameters under the user’s control. Most of these
+have already been introduced. They are
+                                                                  
+
+                                                                  
+     </p><dl class="description"><dt class="description">
+<span class="cmbx-10">max</span> </dt><dd class="description">The maximum activation parameter.
+     </dd><dt class="description">
+<span class="cmbx-10">min</span> </dt><dd class="description">The minimum activation parameter.
+     </dd><dt class="description">
+<span class="cmbx-10">rest</span> </dt><dd class="description">The  resting  activation  level  to  which  activations  tend  to  settle  in  the
+     absence of external input.
+     </dd><dt class="description">
+<span class="cmbx-10">decay</span> </dt><dd class="description">The  decay  rate  parameter,  which  determines  the  strength  of  the
+     tendency to return to resting level.
+     </dd><dt class="description">
+<span class="cmbx-10">estr</span> </dt><dd class="description">This parameter stands for the strength of external input (i.e., input to
+     units from outside the network). It scales the influence of external signals
+     relative to internally generated inputs to units.
+     </dd><dt class="description">
+<span class="cmbx-10">alpha</span> </dt><dd class="description">This parameter scales the strength of the excitatory input to units from
+     other units in the network.
+     </dd><dt class="description">
+<span class="cmbx-10">gamma</span> </dt><dd class="description">This parameter scales the strength of the inhibitory input to units
+     from other units in the network.</dd></dl>
+<!--l. 443--><p class="noindent">In general, it would be possible to specify separate values for each of these parameters
+for each unit. The IAC model does not allow this, as we have found it tends to
+introduce far too many degrees of freedom into the modeling process. However, the
+model does allow the user to specify strengths for the individual connection strengths
+in the network.
+<!--l. 450--></p><p class="indent">   The <span class="cmmi-10">noise </span>parameter is treated separately in the IAC model. Here, there is a
+pool-specific variable called ’noise’. How this actually works is described under Core
+Routines below.
+<!--l. 454--></p><p class="noindent">
+   </p><h4 class="subsectionHead"><span class="titlemark">2.2.5   </span> <a id="x7-300002.2.5"></a>Pools and Projections</h4>
+<!--l. 455--><p class="noindent">The main thing to understand about the way networks work is to understand the
+concepts <span class="cmti-10">pool </span>and <span class="cmti-10">projection</span>. A <span class="cmti-10">pool </span>is a set of units and a <span class="cmti-10">projection </span>is a set of
+connections linking two pools. A network could have a single pool and a single
+projection, but usually networks have more constrained architectures than this, so
+that a pool and projection structure is appropriate.
+<!--l. 463--></p><p class="indent">   All networks have a special pool called the bias pool that contains a single unit
+called the bias unit that is always on. The connection weights from the bias pool to
+the units in another pool can take any value, and that value then becomes a constant
+part of the input to the unit. The bias pool is always pool(1). A network with a layer
+                                                                  
+
+                                                                  
+of input units and a layer of hidden units would have two additional pools, pool(2)
+and pool(3) respectively.
+<!--l. 471--></p><p class="indent">   Projections are attached to units receiving connections from another pool. The
+first projection to each pool is the projection from the bias pool, if such a projection
+is used (there is no such projection in the <span class="cmti-10">jets </span>network). A projection can be from a
+pool to itself, or from a pool to another pool. In the <span class="cmti-10">jets </span>network, there is pool for
+the visible units and a pool for the hidden units, and there is a self-projection
+(projection 1 in both cases) containing mutually inhibitory connections and
+also a projection from the other pool (projection 2 in each case) containing
+between-pool excitatory connections. These connections are bi-directionally
+symmatric.
+<!--l. 482--></p><p class="indent">   The connection to visible unit <span class="cmmi-10">i </span>from hidden unit <span class="cmmi-10">j </span>is:
+   </p><center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook22x.png" alt="net.pool(2).projection (2).weight(i,j)
+" class="math-display"></center>
+<!--l. 485--><p class="nopar">
+and the symmetric return connection is
+   </p><center class="math-display">
+<img src="stanford-Interactive%20Activation%20and%20Competition_files/handbook23x.png" alt="net.pool(3).projection (2).weight(j,i)
+" class="math-display"></center>
+<!--l. 489--><p class="nopar">
+<!--l. 491--></p><p class="noindent">
+   </p><h4 class="subsectionHead"><span class="titlemark">2.2.6   </span> <a id="x7-310002.2.6"></a>The Core Routines</h4>
+<!--l. 492--><p class="noindent">Here we explain the basic structure of the core routines used in the <span class="cmbx-10">iac</span>
+program.
+     </p><dl class="description"><dt class="description">
+<span class="cmbx-10">reset.</span> </dt><dd class="description">This routine is used to reset the activations of units to their resting
+     levels and to reset the time—the current cycle number—back to 0. All
+     variables are cleared, and the display is updated to show the network
+     before processing begins.
+     </dd><dt class="description">
+<span class="cmbx-10">cycle.</span> </dt><dd class="description">This routine is the basic routine that is used in running the model. It
+     carries out a number of processing cycles, as determined by the program
+     control variable <span class="cmmi-10">ncycles</span>. On each cycle, two routines are called: <span class="cmmi-10">getnet</span>
+     and <span class="cmmi-10">update</span>. At the end of each cycle, if pdptool is being run in gui mode,
+     then the program checks to see whether the display is to be updated and
+     whether to pause so the user can examine the new state (and possibly
+     terminate processing). The routine looks like this:</dd></dl>
+                                                                  
+
+                                                                  
+<div class="verbatim" id="verbatim-31">
+function&nbsp;cycle
+&nbsp;<br>
+&nbsp;<br>for&nbsp;cy&nbsp;=&nbsp;1:&nbsp;ncycles
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cycleno&nbsp;=&nbsp;cycleno&nbsp;+&nbsp;1;
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;getnet();
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;update();
+&nbsp;<br>%&nbsp;what&nbsp;follows&nbsp;is&nbsp;concerned&nbsp;with
+&nbsp;<br>%&nbsp;pausing&nbsp;and&nbsp;updating&nbsp;the&nbsp;display
+&nbsp;<br>&nbsp;&nbsp;&nbsp;if&nbsp;guimode&nbsp;&amp;&amp;&nbsp;display_granularity&nbsp;==&nbsp;cycle
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;update_display();
+&nbsp;<br>&nbsp;&nbsp;&nbsp;end
+&nbsp;<br>end
+&nbsp;<br>
+</div>
+<!--l. 522--><p class="nopar">
+<!--l. 524--></p><p class="indent">   The <span class="cmmi-10">getnet </span>and <span class="cmmi-10">update </span>routines are somewhat different for the standard version
+and Grossberg version of the program. We first describe the standard versions of
+each, then turn to the Grossberg versions.
+<!--l. 529--></p><p class="indent">   <span class="cmti-10">Standard getnet. </span>The standard <span class="cmmi-10">getnet </span>routine computes the net input for each
+pool. The net input consists of three things: the external input, scaled by <span class="cmmi-10">estr</span>; the
+excitatory input from other units, scaled by <span class="cmmi-10">alpha</span>; and the inhibitory input from
+other units, scaled by <span class="cmmi-10">gamma</span>. For each pool, the <span class="cmmi-10">getnet </span>routine first accumulates the
+excitatory and inhibitory inputs from other units, then scales the inputs and adds
+them to the scaled external input to obtain the net input. If the pool-specific noise
+parameter is non-zero, a sample from the standard normal distribution is taken, then
+multiplied by the value of the ’noise’ parameter, then added to the excitatory
+input.
+<!--l. 541--></p><p class="indent">   Whether a connection is excitatory or inhibitory is determined by its
+sign. The connection weights from every sending unit to a pool(<span class="cmmi-10">wts</span>) are
+examined. For all positive values of <span class="cmmi-10">wts</span>, the corresponding excitation terms
+are incremented by <span class="cmmi-10">pool</span>(<span class="cmmi-10">sender</span>)<span class="cmmi-10">.activation</span>(<span class="cmmi-10">index</span>) <span class="cmsy-10">* </span><span class="cmmi-10">wts</span>(<span class="cmmi-10">wts &gt; </span>0). This
+operation uses matlab logical indexing to apply the computation to only those
+elements of the array that satisfy the condition. Similarly, for all negative values
+of <span class="cmmi-10">wts</span>, <span class="cmmi-10">pool</span>(<span class="cmmi-10">sender</span>)<span class="cmmi-10">.activation</span>(<span class="cmmi-10">index</span>) <span class="cmsy-10">* </span><span class="cmmi-10">wts</span>(<span class="cmmi-10">wts &lt; </span>0) is added into the
+inhibition terms. These operations are only performed for sending units that
+have positive activations. The code that implements these calculations is as
+follows:
+                                                                  
+
+                                                                  
+   </p><div class="verbatim" id="verbatim-32">
+function&nbsp;getnet
+&nbsp;<br>
+&nbsp;<br>for&nbsp;i=1:numpools
+&nbsp;<br>&nbsp;&nbsp;&nbsp;pool(i).excitation&nbsp;=&nbsp;0.0;
+&nbsp;<br>&nbsp;&nbsp;&nbsp;pool(i).inhibition&nbsp;=&nbsp;0.0;
+&nbsp;<br>&nbsp;&nbsp;&nbsp;for&nbsp;sender&nbsp;=&nbsp;1:numprojections_into_pool(i)
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;positive_acts_indices&nbsp;=&nbsp;&nbsp;find(pool(sender).activation&nbsp;&gt;&nbsp;0);
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;~isempty(positive_acts_indices)
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;k&nbsp;=&nbsp;1:numelements(positive_acts_indices)
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;=&nbsp;positive_acts_indices(k);
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wts&nbsp;=&nbsp;projection_weight(:,index);
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pool(i).excitation&nbsp;(wts&gt;0)&nbsp;=&nbsp;pool(i).excitation(wts&gt;0)
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;pool(sender).activation(index)&nbsp;*&nbsp;wts(wts&gt;0);
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pool(i).inhibition&nbsp;(wts&lt;0)&nbsp;=&nbsp;pool(i).inhibition(wts&lt;0)
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;pool(sender).activation(index)&nbsp;*&nbsp;wts(wts&lt;0);
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pool(i).excitation&nbsp;=&nbsp;pool(i).excitation&nbsp;*&nbsp;alpha;
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pool(i).inhibition&nbsp;=&nbsp;pool(i).inhibition&nbsp;*&nbsp;gamma;
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(pool(i).noise)
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pool(i).excitation&nbsp;=&nbsp;pool(i).excitation&nbsp;+
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Random(’Normal’,0,pool(i).noise,size(pool(1).excitation);
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;end
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pool(i).netinput&nbsp;=&nbsp;pool(i).excitation&nbsp;+&nbsp;pool(i).inhibition
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;estr&nbsp;*&nbsp;pool(i).extinput;
+&nbsp;<br>end
+&nbsp;<br>
+</div>
+<!--l. 581--><p class="nopar">
+<!--l. 583--></p><p class="indent">   <span class="cmti-10">Standard update. </span>The <span class="cmti-10">update </span>routine increments the activation of each unit,
+based on the net input and the existing activation value. The vector <span class="cmmi-10">pns </span>is a
+logical array (of 1s and 0s), 1s representing those units that have positive
+netinput and 0s for the rest. This is then used to index into the activation and
+netinput vectors and compute the new activation values. Here is what it looks
+like:
+                                                                  
+
+                                                                  
+   </p><div class="verbatim" id="verbatim-33">
+function&nbsp;update
+&nbsp;<br>for&nbsp;i&nbsp;=&nbsp;1:numpools
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;pns&nbsp;=&nbsp;find(pool(i).netinput&nbsp;&gt;&nbsp;0);
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;~isempty(pns)
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pool(i).activation(pns)&nbsp;=&nbsp;pool(i).activation(pns)
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;(max-&nbsp;pool(i).activation(pns))*pool(i).netinput(pns)
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;decay*(pool(i).activation(pns)&nbsp;-&nbsp;rest);
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;end
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;nps&nbsp;=&nbsp;~pns;
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;~isempty(nps)
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pool(i).activation(nps)&nbsp;=&nbsp;pool(i).activation(nps)
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;(pool(i).activation(nps)&nbsp;-min))*pool(i).netinput(nps)
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;decay*(pool(i).activation(nps)&nbsp;-&nbsp;rest);
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;end
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;pool(i).activation(pool(i).activation&nbsp;&gt;&nbsp;max)&nbsp;=&nbsp;max;
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;pool(i).activation(pool(i).activation&nbsp;&lt;&nbsp;min)&nbsp;=&nbsp;min;
+&nbsp;<br>end
+&nbsp;<br>
+</div>
+<!--l. 609--><p class="nopar">
+<!--l. 611--></p><p class="indent">   The last two conditional statements are included to guard against the anomalous
+behavior that would result if the user had set the <span class="cmmi-10">estr</span>, <span class="cmmi-10">istr</span>, and <span class="cmmi-10">decay </span>parameters to
+values that allow activations to change so rapidly that the approximation to
+continuity is seriously violated and activations have a chance to escape the bounds
+set by the values of <span class="cmmi-10">max </span>and <span class="cmmi-10">min</span>.
+<!--l. 618--></p><p class="indent">   <span class="cmti-10">Grossberg versions. </span>The Grossberg versions of these two routines are structured
+like the standard versions. In the <span class="cmmi-10">getnet </span>routine, the only difference is that the net
+input for each pool is not computed; instead, the excitation and inhibition
+are scaled by <span class="cmmi-10">alpha </span>and <span class="cmmi-10">gamma</span>, respectively, and scaled external input is
+added to the excitation if it is positive or is added to the inhibition if it is
+negative:
+                                                                  
+
+                                                                  
+   </p><div class="verbatim" id="verbatim-34">
+&nbsp;&nbsp;&nbsp;pool(i).excitation&nbsp;=&nbsp;pool(i).excitation&nbsp;*&nbsp;alpha;
+&nbsp;<br>&nbsp;&nbsp;&nbsp;pool(i).inhibition&nbsp;=&nbsp;pool(i).inhibition&nbsp;*&nbsp;gamma;
+&nbsp;<br>&nbsp;&nbsp;&nbsp;posext&nbsp;=&nbsp;find(net.pool(i).extinput&nbsp;&gt;&nbsp;0);
+&nbsp;<br>&nbsp;&nbsp;&nbsp;negext&nbsp;=&nbsp;find(net.pool(i).extinput&nbsp;&lt;&nbsp;0);
+&nbsp;<br>&nbsp;&nbsp;&nbsp;pool(i).excitation(posext)&nbsp;=&nbsp;pool(i).excitation(posext)
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;estr&nbsp;*&nbsp;pool(i).extinput(posext);
+&nbsp;<br>&nbsp;&nbsp;&nbsp;pool(i).inhibition(negext)&nbsp;=&nbsp;pool(i).&nbsp;inhibition&nbsp;(negext)
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;&nbsp;estr&nbsp;*&nbsp;pool(i).extinput(negext);
+&nbsp;<br>
+</div>
+<!--l. 635--><p class="nopar"> In the <span class="cmmi-10">update </span>routine the two different versions of the standard activation rule are
+replaced by a single expression. The routine then becomes
+                                                                  
+
+                                                                  
+   </p><div class="verbatim" id="verbatim-35">
+&nbsp;function&nbsp;update
+&nbsp;<br>&nbsp;pool(i).activation&nbsp;=&nbsp;pool(i).activation
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;(max&nbsp;-&nbsp;pool(i).activation)&nbsp;.*&nbsp;pool(i).excitation
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+&nbsp;(pool(i).activation&nbsp;-&nbsp;min)&nbsp;.*&nbsp;pool(i).inhibition
+&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;decay&nbsp;*&nbsp;(pool(i).activation&nbsp;-&nbsp;rest);
+&nbsp;<br>&nbsp;pool(i).activation(pool(i).activation&nbsp;&gt;&nbsp;max)&nbsp;=&nbsp;max;
+&nbsp;<br>&nbsp;pool(i).activation(pool(i).activation&nbsp;&lt;&nbsp;min)&nbsp;=&nbsp;min;
+&nbsp;<br>
+</div>
+<!--l. 648--><p class="nopar">
+<!--l. 650--></p><p class="indent">   The program makes no explicit reference to the IAC network architecture, in
+which the units are organized into competitive pools of mutually inhibitory units and
+in which excitatory connections are assumed to be bidirectional. These architectural
+constraints are imposed in the network file. In fact, the <span class="cmbx-10">iac </span>program can implement
+any of a large variety of network architectures, including many that violate the
+architectural assumptions of the IAC framework. As these examples illustrate, the
+core routines of this model—indeed, of all of our models—are extremely
+simple.
+<!--l. 660--></p><p class="noindent">
+   </p><h3 class="sectionHead"><span class="titlemark">2.3   </span> <a id="x7-320002.3"></a>EXERCISES</h3>
+<!--l. 662--><p class="noindent">In this section we suggest several different exercises. Each will stretch your
+understanding of IAC networks in a different way. Ex. <a href="#x7-330001">2.1<!--tex4ht:ref: ch2_ex1 --></a> focuses primarily on basic
+properties of IAC networks and their application to various problems in memory
+retrieval and reconstruction. Ex. <a href="#x7-340002">2.2<!--tex4ht:ref: ch2_ex2 --></a> suggests experiments you can do to examine the
+effects of various parameter manipulations. Ex. <a href="#x7-350003">2.3<!--tex4ht:ref: ch2_ex3 --></a> fosters the exploration of
+Grossberg’s update rule as an alternative to the default update rule used in the <span class="cmbx-10">iac</span>
+program. Ex. <a href="#x7-360004">2.4<!--tex4ht:ref: ch2_ex4 --></a> suggests that you develop your own task and network to use with
+the <span class="cmbx-10">iac </span>program.
+<!--l. 676--></p><p class="indent">   If you want to cement a basic understanding of IAC networks, you should
+probably do several parts of Ex. <a href="#x7-330001">2.1<!--tex4ht:ref: ch2_ex1 --></a> , as well as Ex. <a href="#x7-340002">2.2<!--tex4ht:ref: ch2_ex2 --></a> The first few parts of Ex. <a href="#x7-330001">2.1<!--tex4ht:ref: ch2_ex1 --></a>
+also provide an easy tutorial example of the general use of the programs in this
+book.
+<a id="x7-32001r1"></a>
+<!--l. 681--></p><p class="noindent">
+   </p><h4 class="likesubsectionHead"><a id="x7-330001"></a>Ex2.1. Retrieval and Generalization</h4>
+<!--l. 683--><p class="noindent">Use the <span class="cmbx-10">iac </span>program to examine how the mechanisms of interactive activation
+and competition can be used to illustrate the following properties of human
+memory:
+                                                                  
+
+                                                                  
+     </p><dl class="description"><dt class="description">
+ </dt><dd class="description">Retrieval by name and by content.
+     </dd><dt class="description">
+ </dt><dd class="description">Assignment of plausible default values when stored information is incomplete.
+     </dd><dt class="description">
+ </dt><dd class="description">Spontaneous generalization over a set of familiar items.</dd></dl>
+<!--l. 692--><p class="indent">   </p><hr class="figure"><div class="figure">
+                                                                  
+
+                                                                  
+<a id="x7-330011"></a>
+                                                                  
+
+                                                                  
+<div class="center">
+<!--l. 693--><p class="noindent">
+<!--l. 694--></p><p class="noindent"><a href="https://web.stanford.edu/group/pdplab/pdphandbook/jetsandsharkstable.png" target="_blank"> <img src="stanford-Interactive%20Activation%20and%20Competition_files/jetsandsharkstable.png" alt="pict" width="450px"></a>
+<br> </p><div class="caption"><span class="id">Figure&nbsp;2.1: </span><span class="content">Characteristics of a number of individuals belonging to two gangs,
+the Jets and the Sharks. (From “Retrieving General and Specific Knowledge
+From Stored Knowledge of Specifics” by 1. L. McClelland, 1981, <span class="cmti-10">Proceedings of</span>
+<span class="cmti-10">the Third Annual Conference of the Cognitive Science Society. </span>Copyright 1981
+by J. L. McClelland. Reprinted by permission.)</span></div><!--tex4ht:label?: x7-330011 -->
+</div>
+                                                                  
+
+                                                                  
+<!--l. 703--><p class="indent">   </p></div><hr class="endfigure">
+<!--l. 705--><p class="indent">   The “data base” for this exercise is the Jets and Sharks data base shown in
+Figure 10 of <span class="cmti-10">PDP:1 </span>and reprinted here for convenience in Figure <a href="#x7-330011">2.1<!--tex4ht:ref: ch2_fig1 --></a>. You are to use
+the <span class="cmbx-10">iac </span>program in conjunction with this data base to run illustrative simulations of
+these basic properties of memory. In so doing, you will observe behaviors of the
+network that you will have to explain using the analysis of IAC networks presented
+earlier in the “Background section”.
+<!--l. 713--></p><p class="indent">   <span class="cmti-10">Starting up. </span>In MATLAB, make sure your path is set to your pdptool folder, and
+set your current directory to be the iac folder. Enter ‘jets’ at the MATLAB command
+prompt. Every label on the display you see corresponds to a unit in the network.
+Each unit is represented as two squares in this display. The square to the left of the
+label indicates the external input for that unit (initially, all inputs are 0). The
+square to the right of the label indicates the activation of that unit (initially,
+all activation values are equal to the value of the <span class="cmmi-10">rest </span>parameter, which is
+-0.1).
+<!--l. 722--></p><p class="indent">   If the colorbar is not on, click the ‘colorbar’ menu at the top left of the display.
+Select ‘on’. To select the correct ‘colorbar’ for the jets and sharks exercise, click the
+colorbar menu item again, click ‘load colormap’ and then select the jmap colormap
+file in the iac directory. With this colormap, an activation of 0 looks gray, -.2 looks
+blue, and 1.0 looks red. Note that when you hold the mouse over a colored tile, you
+will see the numeric value indicated by the color (and you get the name of the
+unit, as well). Try right-clicking on the colorbar itself and choosing other
+mappings from ‘Standard Colormaps’ to see if you prefer them over the
+default.
+<!--l. 733--></p><p class="indent">   The units are grouped into seven pools: a pool of <span class="cmti-10">name </span>units, a pool of <span class="cmti-10">gang</span>
+units, a pool of <span class="cmti-10">age </span>units, a pool of <span class="cmti-10">education </span>units, a pool of <span class="cmti-10">marital status </span>units, a
+pool of <span class="cmti-10">occupation </span>units, and a pool of <span class="cmti-10">instance </span>units. The <span class="cmti-10">name </span>pool contains a unit
+for the name of each person; the <span class="cmti-10">gang </span>pool contains a unit for each of the gangs the
+people are members of (Jets and Sharks); the <span class="cmti-10">age </span>pool contains a unit for each age
+range; and so on. Finally, the <span class="cmti-10">instance </span>pool contains a unit for each individual in the
+set.
+<!--l. 743--></p><p class="indent">   The units in the first six pools can be called <span class="cmti-10">visible </span>units, since all are assumed to
+be accessible from outside the network. Those in the gang, age, education,
+marital status, and occupation pools can also be called property units. The
+instance units are assumed to be inaccessible, so they can be called <span class="cmti-10">hidden</span>
+units.
+<!--l. 749--></p><p class="indent">   </p><hr class="figure"><div class="figure">
+                                                                  
+
+                                                                  
+<a id="x7-330022"></a>
+                                                                  
+
+                                                                  
+<div class="center">
+<!--l. 750--><p class="noindent">
+<!--l. 751--></p><p class="noindent"><a href="https://web.stanford.edu/group/pdplab/pdphandbook/jetsdiagram.png" target="_blank"> <img src="stanford-Interactive%20Activation%20and%20Competition_files/jetsdiagram.png" alt="pict" width="450px"></a>
+<br> </p><div class="caption"><span class="id">Figure&nbsp;2.2: </span><span class="content">The units and connections for some of the individuals in Figure
+<a href="#x7-330011">2.1<!--tex4ht:ref: ch2_fig1 --></a>. (Two slight errors in the connections depicted in the original of this figure
+have been corrected in this version.) (From “Retrieving General and Specific
+Knowledge From Stored Knowledge of Specifics” by J. L. McClelland, 1981,
+<span class="cmti-10">Proceedings of the Third Annual Conference of the Cognitive Science Society</span>.
+Copyright 1981 by J. L. McClelland. Reprinted by permission.)</span></div><!--tex4ht:label?: x7-330022 -->
+</div>
+                                                                  
+
+                                                                  
+<!--l. 762--><p class="indent">   </p></div><hr class="endfigure">
+<!--l. 764--><p class="indent">   Each unit has an inhibitory connection to every other unit in the same pool. In
+addition, there are two-way excitatory connections between each instance unit and
+the units for its properties, as illustrated in Figure <a href="#x7-330022">2.2<!--tex4ht:ref: ch2_fig2 --></a> (Figure 11 from <span class="cmti-10">PDP:1</span>). Note
+that the figure is incomplete, in that only some of the name and instance units
+are shown. These names are given only for the convenience of the user, of
+course; all actual computation in the network occurs only by way of the
+connections.
+<!--l. 773--></p><p class="indent">   Note: Although conceptually there are six distinct visible pools, and they
+have been grouped separately on the display, internal to the program they
+form a single pool, called pool(2). Within pool(2), inhibition occurs only
+among units within the same conceptual pool. The pool of instance units is a
+separate pool (pool(3)) inside the network. All units in this pool are mutually
+inhibitory.
+<!--l. 780--></p><p class="indent">   The values of the parameters for the model are:
+<!--l. 783--></p><p class="indent">   <span class="cmmi-10">max </span>= 1<span class="cmmi-10">.</span>0
+<!--l. 785--></p><p class="indent">   <span class="cmmi-10">min </span>= <span class="cmsy-10">-</span>0<span class="cmmi-10">.</span>2
+<!--l. 787--></p><p class="indent">   <span class="cmmi-10">rest </span>= <span class="cmsy-10">-</span>0<span class="cmmi-10">.</span>1
+<!--l. 789--></p><p class="indent">   <span class="cmmi-10">decay </span>= 0<span class="cmmi-10">.</span>1
+<!--l. 791--></p><p class="indent">   <span class="cmmi-10">estr </span>= 0<span class="cmmi-10">.</span>4
+<!--l. 793--></p><p class="indent">   <span class="cmmi-10">alpha </span>= 0<span class="cmmi-10">.</span>1
+<!--l. 795--></p><p class="indent">   <span class="cmmi-10">gamma </span>= 0<span class="cmmi-10">.</span>1
+<!--l. 798--></p><p class="indent">   The program produces the display shown in Figure <a href="#x7-330033">2.3<!--tex4ht:ref: ch2_fig3 --></a>. The display shows
+the names of all of the units. Unit names are preceded by a two-digit unit
+number for convenience in some of the exercises below. The visible units are on
+the left in the display, and the hidden units are on the right. To the right
+of each visible unit name are two squares. The first square indicates the
+external input to the unit (which is initially 0). The second one indicates
+the activation of the unit, which is initially equal to the value of the <span class="cmmi-10">rest</span>
+parameter.
+<!--l. 808--></p><p class="indent">   Since the hidden units do not receive external input, there is only one square to
+the right of the unit name for these units, for the unit’s activation. These units too
+have an initial activation activation level equal to <span class="cmmi-10">rest</span>.
+<!--l. 813--></p><p class="indent">   </p><hr class="figure"><div class="figure">
+                                                                  
+
+                                                                  
+<a id="x7-330033"></a>
+                                                                  
+
+                                                                  
+<div class="center">
+<!--l. 814--><p class="noindent">
+<!--l. 815--></p><p class="noindent"><a href="https://web.stanford.edu/group/pdplab/pdphandbook/netviewerInit.png" target="_blank"> <img src="stanford-Interactive%20Activation%20and%20Competition_files/netviewerInit.png" alt="pict" width="450px"></a>
+<br> </p><div class="caption"><span class="id">Figure&nbsp;2.3: </span><span class="content">The initial display produced by the <span class="cmbx-10">iac </span>program for Ex. <a href="#x7-330001">2.1<!--tex4ht:ref: ch2_ex1 --></a>.</span></div><!--tex4ht:label?: x7-330033 -->
+</div>
+                                                                  
+
+                                                                  
+<!--l. 819--><p class="indent">   </p></div><hr class="endfigure">
+<!--l. 821--><p class="indent">   On the far right of the display is the current cycle number, which is initialized to
+0.
+<!--l. 824--></p><p class="indent">   Since everything is set up for you, you are now ready to do each of the separate
+parts of the exercise. Each part is accomplished by using the interactive activation
+and competition process to do pattern completion, given some probe that is
+presented to the network. For example, to retrieve an individual’s properties from his
+name, you simply provide external input to his name unit, then allow the IAC
+network to propagate activation first to the name unit, then from there to
+the instance units, and from there to the units for the properties of the
+instance.
+<!--l. 836--></p><p class="indent">   <span class="cmti-10">Retrieving an individual from his name</span>. To illustrate retrieval of the
+properties of an individual from his name, we will use Ken as our example. Set
+the external input of Ken’s name unit to 1. Right-click on the square to
+right of the label <span class="cmti-10">36-Ken</span>. Type 1.00 and click enter. The square should turn
+red.
+<!--l. 842--></p><p class="indent">   To run the network, you need to set the number of cycles you wish the network to
+run for (default is 10), and then click the button with the running man cartoon. The
+number of cycles passed is indicated in the top right corner of the network
+window. Click the run icon once now. Alternatively, you can click on the
+step icon 10 times, to get to the point where the network has run for 10
+cycles.
+<!--l. 849--></p><p class="indent">   The PDPtool programs offer a facility for creating graphs of units’ activations (or
+any other variables) as processing occurs. One such graph is set up for you. The
+panels on the left show the activations of units in each of the different visible pools
+excluding the name pool. The activations of the name units are shown in
+the middle. The activations of the instance units are shown in two panels
+on the right, one for the Jets and one for the Sharks. (If this window is in
+your way you can minimize (iconify) it, but you should not close it, since
+it must still exist for its contents to be reset properly when you reset the
+network.)
+<!--l. 859--></p><p class="indent">   What you will see after running 10 cycles is as follows. In the Name panel, you
+will see one curve that starts at about .35 and rises rapidly to .8. This is the curve for
+the activation of unit <span class="cmti-10">36-Ken</span>. Most of the other curves are still at or near rest.
+(Explain to yourself why some have already gone below rest at this point.) A
+confusing fact about these graphs is that if lines fall on top of each other you
+only see the last one plotted, and at this point many of the lines do fall on
+top of each other. In the instance unit panels, you will see one curve that
+rises above the others, this one for hidden unit <span class="cmti-10">22</span><span class="cmti-10">_Ken</span>. Explain to yourself
+why this rises more slowly than the name unit for Ken, shown in the Name
+panel.
+<!--l. 871--></p><p class="indent">   Two variables that you need to understand are the <span class="cmti-10">update after </span>variable in the
+test panel and the <span class="cmti-10">ncycles </span>variable in the <span class="cmti-10">testing options </span>popup window. The former
+(update after) tells the program how frequently to update the display while
+running. The latter (ncycles) tells the program how many cycles to run
+                                                                  
+
+                                                                  
+when you hit run. So, if ncycles is 10 and update after is 1, the program will
+run 10 cycles when you click the little running man, and will update the
+display after each cycle. With the above in mind you can now understand
+what happens when you click the stepping icon. This is just like hitting run
+except that the program stops after each screen update, so you can see what
+has changed. To continue, hit the stepping icon again, or hit run and the
+program will run to the next stopping point (i.e. next number divisible by
+<span class="cmti-10">ncycles</span>.
+<!--l. 885--></p><p class="indent">   As you will observe, activations continue to change for many cycles of processing.
+Things slow down gradually, so that after a while not much seems to be happening
+on each trial. Eventually things just about stop changing. Once you’ve run 100
+cycles, stop and consider these questions.
+<!--l. 890--></p><p class="indent">   </p><hr class="figure"><div class="figure">
+                                                                  
+
+                                                                  
+<a id="x7-330044"></a>
+                                                                  
+
+                                                                  
+<div class="center">
+<!--l. 891--><p class="noindent">
+<!--l. 892--></p><p class="noindent"><a href="https://web.stanford.edu/group/pdplab/pdphandbook/netviewer100.png" target="_blank"> <img src="stanford-Interactive%20Activation%20and%20Competition_files/netviewer100.png" alt="pict" width="450px"></a>
+<br> </p><div class="caption"><span class="id">Figure&nbsp;2.4: </span><span class="content">The display screen after 100 cycles with external input to the name
+unit for Ken.</span></div><!--tex4ht:label?: x7-330044 -->
+</div>
+                                                                  
+
+                                                                  
+<!--l. 896--><p class="indent">   </p></div><hr class="endfigure">
+<!--l. 898--><p class="indent">   A picture of the screen after 100 cycles is shown in Figure <a href="#x7-330044">2.4<!--tex4ht:ref: ch2_fig4 --></a>. At this point, you
+can check to see that the model has indeed retrieved the pattern for Ken correctly.
+There are also several other things going on that are worth understanding. Try to
+answer all of the following questions (you’ll have to refer to the properties of the
+individuals, as given in Figure <a href="#x7-330011">2.1<!--tex4ht:ref: ch2_fig1 --></a>).
+<a id="x7-33005r1"></a>
+<!--l. 907--></p><p class="indent">   Q.2.1.1.
+     </p><div class="quote">
+     <!--l. 908--><p class="noindent">None of the visible name units other than Ken were activated, yet
+     a few other instance units are active (i.e., their activation is greater
+     than 0). Explain this difference. </p></div>
+<a id="x7-33006r2"></a>
+<!--l. 913--><p class="indent">   Q.2.1.2.
+     </p><div class="quote">
+     <!--l. 914--><p class="noindent">Some of Ken’s properties are activated more strongly than others.
+     Why? </p></div>
+<!--l. 917--><p class="indent">   Save the activations of all the units for future reference by typing: <span class="cmti-10">saveVis =</span>
+<span class="cmti-10">net.pool(2).activation </span>and <span class="cmti-10">saveHid = net.pool(3).activation</span>. Also, save the Figure in a
+file, through the ‘File’ menu in the upper left corner of the Figure panel. The
+contents of the figure will be reset when you reset the network, and it will be useful
+to have the saved Figure from the first run so you can compare it to the one you get
+after the next run.
+<!--l. 926--></p><p class="indent">   <span class="cmti-10">Retrieval from a partial description. </span>Next, we will use the <span class="cmbx-10">iac </span>program to
+illustrate how it can retrieve an instance from a partial description of its properties.
+We will continue to use Ken, who, as it happens, can be uniquely described by two
+properties, <span class="cmti-10">Shark </span>and <span class="cmti-10">in20s</span>. Click the reset button in the network window. Make sure
+all units have input of 0. (You will have to right-click on Ken and set that unit back
+to 0). Set the external input of the <span class="cmti-10">02-Sharks </span>unit and the <span class="cmti-10">03-in20s </span>unit to
+1.00. Run a total of 100 cycles again, and take a look at the state of the
+network.
+<a id="x7-33007r3"></a>
+<!--l. 937--></p><p class="indent">   Q.2.1.3.
+     </p><div class="quote">
+     <!--l. 938--><p class="noindent">Describe the differences between this state and the state after 100
+     cycles of the previous run, using <span class="cmti-10">savHid </span>and <span class="cmti-10">savVis </span>for reference.
+     What are the main differences? </p></div>
+                                                                  
+
+                                                                  
+<a id="x7-33008r4"></a>
+<!--l. 943--><p class="indent">   Q.2.1.4.
+     </p><div class="quote">
+     <!--l. 944--><p class="noindent">Explain why the occupation units show partial activations of units
+     other than Ken’s occupation, which is Burglar. While being succinct,
+     try to get to the bottom of this, and contrast the current case with
+     the previous case. </p></div>
+<!--l. 951--><p class="indent">   <span class="cmti-10">Default assignment</span>. Sometimes we do not know something about an individual;
+for example, we may never have been exposed to the fact that Lance is a Burglar.
+Yet we are able to give plausible guesses about such missing information.
+The <span class="cmbx-10">iac </span>program can do this too. Click the reset button in the network
+window. Make sure all units have input of 0. Set the external input of <span class="cmti-10">24-Lance</span>
+to 1.00. Run for 100 cycles and see what happens. Reset the network and
+change the connection weight between <span class="cmti-10">10</span><span class="cmti-10">_Lance </span>and <span class="cmti-10">13-Burglar </span>to 0. To
+do that, type the following commands in the main MATLAB command
+prompt:
+<!--l. 965--></p><p class="indent">   <span class="cmmi-10">net.pool</span>(3)<span class="cmmi-10">.proj</span>(2)<span class="cmmi-10">.weight</span>(10<span class="cmmi-10">,</span>13) = 0;
+<!--l. 969--></p><p class="indent">   <span class="cmmi-10">net.pool</span>(2)<span class="cmmi-10">.proj</span>(2)<span class="cmmi-10">.weight</span>(13<span class="cmmi-10">,</span>10) = 0;
+<!--l. 974--></p><p class="noindent">Run the network again for 100 cycles and observe what happens.
+<a id="x7-33009r5"></a>
+<!--l. 978--></p><p class="indent">   Q.2.1.5.
+     </p><div class="quote">
+     <!--l. 979--><p class="noindent">Describe how the model was able to fill in what in this instance turns
+     out to be the correct occupation for Lance. Also, explain why the
+     model tends to activate the <span class="cmti-10">Divorced  </span>unit as well as the <span class="cmti-10">Married</span>
+     unit </p></div>
+<!--l. 986--><p class="indent">   <span class="cmti-10">Spontaneous generalization</span>. Now we consider the network’s ability to retrieve
+appropriate generalizations over sets of individuals—that is, its ability to answer
+questions like “What are Jets like?” or “What are people who are in their 20s
+and have only a junior high education like?” Click the ‘reset’ button in the
+network window. Make sure all units have input of 0. Be sure to reinstall the
+connections between <span class="cmti-10">13-Burglar </span>and <span class="cmti-10">10</span><span class="cmti-10">_Lance </span>(set them back to 1). You can
+exit and restart the network if you like, or you can use the up arrow key to
+retrieve the last two commands above and edit them, replacing 0 with 1, as
+in:
+                                                                  
+
+                                                                  
+<!--l. 999--></p><p class="indent">   <span class="cmmi-10">net.pool</span>(3)<span class="cmmi-10">.proj</span>(2)<span class="cmmi-10">.weight</span>(10<span class="cmmi-10">,</span>13) = 1;
+<!--l. 1003--></p><p class="indent">   Set the external input of Jets to 1.00. Run the network for 100 cycles and observe
+what happens. Reset the network and set the external input of Jets back to 0.00.
+Now, set the input to <span class="cmti-10">in20s </span>and <span class="cmti-10">JH </span>to 1.00. Run the network again for
+100 cycles; you can ask it to generalize about the people in their 20s with
+a junior high education by providing external input to the <span class="cmti-10">in20s </span>and <span class="cmti-10">JH</span>
+units.
+<a id="x7-33010r6"></a>
+<!--l. 1013--></p><p class="indent">   Q.2.1.6.
+     </p><div class="quote">
+     <!--l. 1014--><p class="noindent">Consider the activations of units in the network after settling for 100
+     cycles with <span class="cmti-10">Jets </span>activated and after settling for 100 cycles with <span class="cmti-10">in20s</span>
+     and <span class="cmti-10">JH </span>activated. How do the resulting activations compare with the
+     characteristics of individuals who share the specified properties? You
+     will need to consult the data in Figure&nbsp;<a href="#x7-330011">2.1<!--tex4ht:ref: ch2_fig1 --></a> to answer this question.
+     </p></div>
+<!--l. 1022--><p class="indent">   Now that you have completed all of the exercises discussed above, write a short
+essay of about 250 words in response to the following question.
+<a id="x7-33011r7"></a>
+<!--l. 1027--></p><p class="indent">   Q.2.1.7.
+     </p><div class="quote">
+     <!--l. 1028--><p class="noindent">Describe the strengths and weaknesses of the IAC model as a model
+     of  retrieval  and  generalization.  How  does  it  compare  with  other
+     models you are familiar with? What properties do you like, and what
+     properties do you dislike? Are there any general principles you can
+     state about what the model is doing that are useful in gaining an
+     understanding of its behavior? </p></div>
+<a id="x7-33012r2"></a>
+   <h4 class="likesubsectionHead"><a id="x7-340002"></a>Ex2.2. Effects of Changes in Parameter Values</h4>
+<!--l. 1038--><p class="noindent">In this exercise, we will examine the effects of variations of the parameters <span class="cmmi-10">estr</span>,
+<span class="cmmi-10">alpha</span>, <span class="cmmi-10">gamma</span>, and <span class="cmmi-10">decay </span>on the behavior of the <span class="cmbx-10">iac </span>program.
+<!--l. 1045--></p><p class="indent">   <span class="cmti-10">Increasing and decreasing the values of the strength parameters. </span>Explore
+the effects of adjusting all of these parameters proportionally, using the
+                                                                  
+
+                                                                  
+partial description of Ken as probe (that is, providing external input to <span class="cmti-10">Shark</span>
+and <span class="cmti-10">in20s</span>). Click the reset button in the network window. Make sure all
+units have input of 0. To increase or decrease the network parameters, click
+on the options button in the network window. This will open a panel with
+fields for all parameters and their current values. Enter the new value(s) and
+click ‘ok’. To see the effect of changing the parameters, set the external
+input of in20s and Sharks to 1.00. For each test, run the network til it seems
+to asymtote, usually around 300 cycles. You can use the graphs to judge
+this.
+<a id="x7-34001r1"></a>
+<!--l. 1059--></p><p class="indent">   Q.2.2.1.
+     </p><div class="quote">
+     <!--l. 1060--><p class="noindent">What  effects  do  you  observe  from  decreasing  the  values  of  <span class="cmmi-10">estr</span>,
+     <span class="cmmi-10">alpha</span>, <span class="cmmi-10">gamma</span>, and <span class="cmmi-10">decay </span>by a factor of 2? What happens if you
+     set them to twice their original values? See if you can explain what
+     is happening here. For this exercise, you should consider both the
+     asymptotic activations of units, and the time course of activation.
+     What  do  you  expect  for  these  based  on  the  discussion  in  the
+     “Background”  section?  What  happens  to  the  time  course  of  the
+     activation? Wny? </p></div>
+<!--l. 1071--><p class="indent">   <span class="cmti-10">Relative strength of excitation and inhibition. </span>Return all the parameters to their
+original values, then explore the effects of varying the value of <span class="cmmi-10">gamma </span>above and
+below 0.1, again providing external input to the <span class="cmti-10">Sharks </span>and <span class="cmti-10">in20s </span>units. Also
+examine the effects on the completion of Lance’s properties from external input to his
+name, with and without the connections between the instance unit for Lance and the
+property unit for Burglar.
+<a id="x7-34002r2"></a>
+<!--l. 1081--></p><p class="indent">   Q.2.2.2.
+     </p><div class="quote">
+     <!--l. 1082--><p class="noindent">Describe the effects of these manipulations and try to characterize
+     their influence on the model’s adequacy as a retrieval mechanism. </p></div>
+<a id="x7-34003r3"></a>
+                                                                  
+
+                                                                  
+<!--l. 1088--><p class="noindent">
+   </p><h4 class="likesubsectionHead"><a id="x7-350003"></a>Ex2.3. Grossberg Variations</h4>
+<!--l. 1088--><p class="noindent">Explore the effects of using Grossberg’s update rule rather than the default rule used
+in the IAC model. Click the ‘reset’ button in the network window. Make sure all
+units have input of 0. Return all parameters to their original values. If you don’t
+remember them, you can always exit and reload the network from the main pdp
+window. Click on the options button in the network window and change <span class="cmmi-10">actfunction</span>
+from st (Standard) to gr (Grossbergs rule). Click ‘ok’. Now redo one or two of the
+simulations from Ex. <a href="#x7-330001">2.1<!--tex4ht:ref: ch2_ex1 --></a>.
+<a id="x7-35001r1"></a>
+<!--l. 1100--></p><p class="indent">   Q.2.3.1.
+     </p><div class="quote">
+     <!--l. 1101--><p class="noindent">What happens when you repeat some of the simulations suggested
+     in Ex. <a href="#x7-330001">2.1<!--tex4ht:ref: ch2_ex1 --></a> with <span class="cmti-10">gb </span>mode on? Can these effects be compensated for
+     by adjusting the strengths of any of the parameters? If so, explain
+     why.  Do  any  subtle  differences  remain,  even  after  compensatory
+     adjustments? If so, describe them. </p></div>
+<!--l. 1108--><p class="indent">   <span class="cmti-10">Hint.</span>
+     </p><div class="quote">
+     <!--l. 1109--><p class="noindent">In considering the issue of compensation, you should consider the
+     difference in the way the two update rules handle inhibition and the
+     differential role played by the minimum activation in each update
+     rule. </p></div>
+<a id="x7-35002r4"></a>
+<!--l. 1117--><p class="noindent">
+   </p><h4 class="likesubsectionHead"><a id="x7-360004"></a>Ex2.4. Construct Your Own IAC Network</h4>
+<!--l. 1117--><p class="noindent">Construct a task that you would find interesting to explore in an IAC network, along
+with a knowledge base, and explore how well the network does in performing your
+task. To set up your network, you will need to construct a .net and a .tem file, and
+you must set the values of the connection weights between the units. Appendix <a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookap2.html#x28-149000B">B<!--tex4ht:ref: appendix_create_net --></a>
+and <span class="cmti-10">The PDPTool User Guide </span>provide information on how to do this. You
+may wish to refer to the jets.m, jets.net, and jets.tem files for examples.
+<a id="x7-36001r1"></a>
+<!--l. 1127--></p><p class="indent">   Q.2.4.1.
+                                                                  
+
+                                                                  
+     </p><div class="quote">
+     <!--l. 1128--><p class="noindent">Describe your task, why it is interesting, your knowledge base, and
+     the experiments you run on it. Discuss the adequacy of the IAC
+     model to do the task you have set it. </p></div>
+<!--l. 1133--><p class="indent">   <span class="cmti-10">Hint.</span>
+     </p><div class="quote">
+     <!--l. 1134--><p class="noindent">You might bear in mind if you undertake this exercise that you
+     can specify virtually <span class="cmti-10">any </span>architecture you want in an IAC network,
+     including architectures involving several layers of units. You might
+     also want to consider the fact that such networks can be used in
+     low-level perceptual tasks, in perceptual mechanisms that involve
+     an interaction of stored knowledge with bottom-up information, as
+     in the interactive activation model of word perception, in memory
+     tasks, and in many other kinds of tasks. Use your imagination, and
+     you may discover an interesting new application of IAC networks. </p></div>
+                                                                  
+
+                                                                  
+<!--l. 4--><div class="crosslinks"><p class="noindent"><a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookch4.html"><span class="cmsy-7">&#8658;</span></a><a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookch2.html"><span class="cmsy-7">&#8656;</span></a><a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbook3.html#handbookch3.html"><span class="cmsy-7">&#8657;</span></a></p></div>
+<!--l. 4--><p class="indent">   <a id="tailhandbookch3.html"></a>   
+ 
+</p></body></html>

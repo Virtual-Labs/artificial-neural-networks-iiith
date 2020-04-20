@@ -1,0 +1,258 @@
+{
+    "artciles": [
+        {
+            "quiztitle": "Quiz for Experiment",
+            "containers": "5"
+        },
+        {
+            "q": "What kind of connections exist between units of same pool?",
+            "option": [
+                "inhibitory",
+                "excitatory",
+                "neutral"
+            ],
+            "answer": "inhibitory",
+            "description": "Units of same pool are mutually inhibitory"
+        },
+        {
+            "q": "If one unit of a pool gets higher activation, how does that affect the activation of other units in the same pool?",
+            "option": [
+                "increases",
+                "decreases",
+                "remains unaffected"
+            ],
+            "answer": "decreases",
+            "description": "since connection is inhibitory,activation of others decreases"
+        },
+        {
+            "q": "net input is dependent on which of the following?",
+            "option": [
+                "weight[i][j] only",
+                "weight[i][j] and external input only",
+                "weight[i][j], external input and output"
+            ],
+            "answer": "weight[i][j], external input and output",
+            "description": "It is dependent on preevious input as well in accord with theory."
+        },
+        {
+            "q": "How is the change in activation calculated?",
+            "option": [
+                "Δai = (max - ai)neti - decay(ai - rest) ",
+                "Δai = (ai - min)neti - decay(ai - rest)",
+                "depends on the sign of net input"
+            ],
+            "answer": "depends on the sign of net input",
+            "description": "if net input is +ve, then (a) and if -ve, then (b)"
+        },
+        {
+            "q": "If two units have excitatory connection, and one is activated, what is the phenomenon that both display?",
+            "option": [
+                "resonance",
+                "rich get richer"
+            ],
+            "answer": "resonance",
+            "description": "excitation of one activates the other through +ve connection"
+        },
+        {
+            "q": "Is it possible for a unit to not get activated even on giving external input?",
+            "option": [
+                "No.",
+                "Yes, because the gamma and decay values may be such that inhibitory power exceeds the external input.",
+                "Yes, because external input alone is not enough to activate the unit."
+            ],
+            "answer": "Yes, because the gamma and decay values may be such that inhibitory power exceeds the external input.",
+            "description": "In rare cases, 2nd effect appears"
+        },
+        {
+            "q": "What is the change 'decay' tries to make to the model?",
+            "option": [
+                "bring activation down as much as possible.",
+                "bring activation up as much as possible.",
+                "tends to restore the activation of the unit to its resting level."
+            ],
+            "answer": "tends to restore the activation of the unit to its resting level.",
+            "description": "it's purpose is not to minimize but rather bring to rest"
+        },
+        {
+            "q": "What is the difference between hidden and visible units in IAC?",
+            "option": [
+                "visible can recieve external input but hidden cannot.",
+                "visible affects the activation of other units whereas hidden does not.",
+                "visible is shown to the user whereas hidden is not even shown to the user."
+            ],
+            "answer": "visible can recieve external input but hidden cannot.",
+            "description": "theory"
+        },
+        {
+            "q": "how many phases are involved to make sure activation of the units is synchronous?",
+            "option": [
+                "3",
+                "2",
+                "4"
+            ],
+            "answer": "2",
+            "description": "'getting net' and 'updating'"
+        },
+        {
+            "q": "Which is the special pool in all pool-projection models?",
+            "option": [
+                "bias pool",
+                "instance pool",
+                "name pool"
+            ],
+            "answer": "bias pool",
+            "description": "theory"
+        },
+        {
+            "q": "why is there an actmax and actmin bound on activation?",
+            "option": [
+                "to control activation in cases when estr, decay, gamma have outlying values.",
+                "to control rapid change in activation"
+            ],
+            "answer": "to control activation in cases when estr, decay, gamma have outlying values.",
+            "description": "rapid change in activation is there irrespective."
+        },
+        {
+            "q": "What is the nature of the connetions?",
+            "option": [
+                "bidirectional",
+                "unidirectional from instance pool to other pools",
+                "unidirectional from other pools to instance pool"
+            ],
+            "answer": "bidirectional",
+            "description": "theory"
+        },
+        {
+            "q": "What makes this model interactive",
+            "option": [
+                "bidirectional nature of connections",
+                "ability of controlling the initial variables",
+                "both"
+            ],
+            "answer": "bidirectional nature of connections",
+            "description": "the activation of one unit both influences and is influenced by the units to which it is connected"
+        },
+        {
+            "q": "Which of the following is correct way to choose actmax,actrest and actmin",
+            "option": [
+                "0>actmax>actmin>actrest",
+                "actmax>actrest>0>actmin",
+                "actmax>0>actrest>actmin"
+            ],
+            "answer": "actmax>0>actrest>actmin",
+            "description": "if rest is +ve, network behaves very oddly"
+        },
+        {
+            "q": "When is equilibrium said to be attained",
+            "option": [
+                "when the net input tends to 0",
+                "when the global change tends to 0",
+                "when the activation tends to 0"
+            ],
+            "answer": "when the global change tends to 0",
+            "description": "theory"
+        },
+        {
+            "q": "what is the meaning of competition in IAC",
+            "option": [
+                "tendency for units connected by negative weights to turn each other off",
+                "tendency for global change to become 0",
+                "tendency for each unit to attain maximum activation"
+            ],
+            "answer": "tendency for units connected by negative weights to turn each other off",
+            "description": "theory"
+        },
+        {
+            "q": "what is the name for the ability of one active unit to stop a unit to which it is connected with a negative weight from becoming active?",
+            "option": [
+                "resonance",
+                "hysterisis",
+                "rich gets richer"
+            ],
+            "answer": "hysterisis",
+            "description": "blocking and hysterisis ensures negative weights reduce activation"
+        },
+        {
+            "q": "what is oscillation?",
+            "option": [
+                "for net input to change signs after every 350 cycles.",
+                "ability of some networks turn on and off on consecutive timesteps and never settle to a stable point.",
+                "ability of instance pool units to have changing activation"
+            ],
+            "answer": "ability of some networks turn on and off on consecutive timesteps and never settle to a stable point.",
+            "description": "theory"
+        },
+        {
+            "q": "Assuming actmax = 1 and actrest = 0, which of the following holds true?",
+            "option": [
+                "ai = neti / (decay + neti)",
+                "ai = (neti / decay) / (neti/decay +1)",
+                "both of the above"
+            ],
+            "answer": "both of the above",
+            "description": "on writing out equations, you get above results"
+        },
+        {
+            "q": "What is the effect of differences in net input over long period of time?",
+            "option": [
+                "the differences become amplified",
+                "the differences become minimal",
+                "the differences remain more or less the same"
+            ],
+            "answer": "the differences become amplified",
+            "description": "due to competition, differences can only increase."
+        },
+        {
+            "q": "Suppose we have two units with mutually inhibitory connections of -2 decay. Unit 1 begins with an activation of 0.5 and both units have external input of decay. Supposing rest is 0:",
+            "option": [
+                "The activation of unit 1 = 0.5,  activation of unit 2 = 0",
+                "The activation of unit 1 = 1,  activation of unit 2 = 0.5",
+                "The activation of unit 1 = 0.5,  activation of unit 2 = 0.5"
+            ],
+            "answer": "The activation of unit 1 = 0.5,  activation of unit 2 = 0",
+            "description": "delta Ai formula."
+        },
+        {
+            "q": "which of these themes are central to neural networks and not present in sequential processing machines?",
+            "option": [
+                "Content addressability",
+                "Robustness to noise",
+                "both of the above"
+            ],
+            "answer": "both of the above",
+            "description": "both aspects cannot be performed by Von Neumann machines that only sequentially process"
+        },
+        {
+            "q": "which of these themes are central to neural networks and not present in sequential processing machines?",
+            "option": [
+                "Generalization",
+                "Default assignment",
+                "both of the above"
+            ],
+            "answer": "both of the above",
+            "description": "both aspects cannot be performed by Von Neumann machines that only sequentially process"
+        },
+        {
+            "q": "Which of the following correctly defines content addressibility",
+            "option": [
+                "the ability to access memories given any of the components of the fact or episode.",
+                "the ability to access memories despite incomplete or even incorrect cues.",
+                "the ability to generalise over a set of instances.",
+                "the ability to assign plausible default values if a given fact is not in memory."
+            ],
+            "answer": "the ability to access memories given any of the components of the fact or episode.",
+            "description": "theory"
+        },
+        {
+            "q": "Which of the following correctly defines robustness to noise",
+            "option": [
+                "the ability to access memories given any of the components of the fact or episode.",
+                "the ability to access memories despite incomplete or even incorrect cues.",
+                "the ability to generalise over a set of instances.",
+                "the ability to assign plausible default values if a given fact is not in memory."
+            ],
+            "answer": "the ability to access memories despite incomplete or even incorrect cues.",
+            "description": "theory"
+        }
+    ]
+}

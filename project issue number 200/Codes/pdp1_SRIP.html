@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>pdp1</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.js"></script>
+    <link rel="stylesheet" type="text/css" href="pdp1_SRIP.css">  
+</head>
+
+<body>
+        <h1 id="heading">Parallel and Distributed Processing-I: Interactive Activaton and Competition models</h1>
+         
+        <div id="centre_button">
+        <button class="btn" onclick="setNewValues()">Set values and restart</button>
+        <button class="btn" onclick="document.location.reload(true)">Reset original values and restart</button>
+        <button class="btn" onclick="window.open('help.html','_blank')">Help</button>
+    </div>
+       <br><br>
+  
+  <div id="flex-container">
+    <table id="one">
+        <tr>
+            <th>Variable</th>
+            <th>Value</th> 
+        </tr>
+        <tr>
+            <td>Estr</td>
+            <td><input type="text" autocomplete="off" id="estr_inp" value='0.4'></td>
+        </tr>
+        <tr>
+            <td>Actmax</td>
+            <td><input type="text" autocomplete="off" id="actmax_inp" value='1.0'></td>
+        </tr>
+        <tr>
+            <td>Actmin</td>
+            <td><input type="text" autocomplete="off" id="actmin_inp" value='-1.0'></td>
+        </tr>
+        <tr>
+            <td>Actrest</td>
+            <td><input type="text" autocomplete="off" id="actrest_inp" value='-0.1'></td>
+        </tr>
+        <tr>
+            <td>Decay</td>
+            <td><input type="text" autocomplete="off" id="decay_inp" value='0.1'></td>
+        </tr>
+        <tr>
+            <td>Beta</td>
+            <td><input type="text" autocomplete="off" id="beta_inp" value='0.1'></td>
+        </tr>
+        <tr>
+            <td>Gamma</td>
+            <td><input type="text" autocomplete="off" id="gamma_inp" value='0.1'></td>
+        </tr>
+    </table>
+  <script src="pdp1_SRIP.js"></script> 
+  </div> 
+</body>
+
+</html>

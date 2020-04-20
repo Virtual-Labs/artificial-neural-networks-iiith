@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HELP</title>
+    <link rel="stylesheet" type="text/css" href="help.css">
+</head>
+
+<body>
+    <h1 id="heading">HELP</h1>
+    <p>
+        The idea of constraint satisfaction can be captured in a PDP model consisting of several units and connections among the units. In this model the units represent hypotheses and the connections represent the knowledge in the form of constraints between any two hypotheses. It is obvious that the knowledge cannot be precise and hence the representation of the knowledge in the form of constraints may not also be precise. So the solution being sought is to satisfy simultaneously as many constraints as possible. Note that the constraints usually are weak constraints, and hence all of them need not be satisfied fully as in the normal constrained optimization problems. The degree of satisfaction is evaluated using a goodness-of-fit function, defined in terms of the output values of the units as well as the weights on the connections between units.         
+    </p>
+    <p>
+        The model we have is already trained and has weights assigned to it. It is these weights that aid in making the original hinton diagram. We can further train the network by providing our input on which descriptor best fits whch room and update the weights accordingly. These new weights are what aid in the making of the new Hinton Diagram.<br><br> The clamping of descriptors is like an external input given to the netowrk. When we do so and test the network, after a few cycles, we see the descriptors belonging to the room type of the descriptor that was clamped to be lit up whereas others are not.<br> 
+    </p>
+    <h3>PROCEDURE FOR USE</h3>
+        <ol id="ol">
+            <li> Click on the "click" button below "click here to see Hinton Diagrams". </li>
+            <br>
+            <li> Click on "Click here to see the original hinton diagram with preset weights" to load the hinton diagram for the already trained network with current weights.</li>
+            <br>
+            <li> Hover your mouse over any of the rectangles for units to see it's hinton diagram in zoomed up version towards the bottom of the canvas.</li>
+            <br>
+            <li> Click on the "back" button to go back to the menu for more choices.</li>
+            <br>
+            <li> Click on the "Click here to further train the model".</li>
+            <br>
+            <li> Click on any room choice to select descriptors for that room.</li>
+            <br>
+            <li> Click on any descriptors you wish to attribute to the room choice that you made.</li>
+            <br>
+            <li> After making atleast one selection of descriptor for each room type, click on "train model and show Hinton Diagram".</li>
+            <br>
+            <li> Hover your mouse over any of the rectangles for units to see it's new hinton diagram in zoomed up version towards the bottom of the canvas.</li>
+            <br>
+            <li> Click on the "back" button to go back to the page to select room and descriptors for that room.</li>
+            <br>
+            <li> Click on "reset" button to reset descriptors and room choices.</li>
+            <br>
+            <li> Click on the "back" button to go back to the menu for more choices.</li>
+            <br>
+            <li> Click on the "home" button to go back to the main menu.</li>
+            <br>
+            <li> Click on the "click here for clamping descriptors"</li>
+            <br>
+            <li> Click on atleast one descriptor to clamp it.</li>
+            <br>
+            <li> Click on descriptor again to unclamp it.</li>
+            <br>
+            <li> Click on "test network" to run 16 cycles of the network.</li>
+            <br>
+            <li> Click on a descriptor to clamp it and simultaneously see the change in the network.</li>
+            <br>
+            <li> Click on "reset" button to reset the clamping.</li>
+            <br>
+            <li> Click on "Home" button to go back to the main menu.</li>
+        </ol>
+    <h3>FORMULAE USED</h3>
+    <p>
+        if descriptor is clamped, it is given activation 1, otherwise 0.<br>
+        nextState[i] of a descriptor is the sum of the products of activation[j] with weights[i][j]<br>
+        if nextState[i] is greater than the threshold, it is given value 1, otherwise 0.<br>
+        if nextState[i] is 1, activation is set to 1 irrespective of it's initial value.<br>
+        activation of each descriptor is calculated for 16 cycles one after another and displayed.<br><br><br>
+        For further information, refer the references given in the references section for this experiment.
+  </p>
+</body>
+
+</html>

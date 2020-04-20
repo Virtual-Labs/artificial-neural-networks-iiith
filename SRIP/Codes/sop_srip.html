@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>sop</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="sop_srip.js"></script>
+    <link rel="stylesheet" type="text/css" href="sop_srip.css">  
+</head>
+
+<body>
+        <h1 id="heading">SOP</h1>
+         
+        <div id="centre_button">
+        <button class="btn" onclick="initSOM()">Initialize SOM</button>
+        <button class="btn" onclick="window.open('help.html','_blank')">Next City</button>
+        <button class="btn" onclick="setNewValues()">Next Iteration</button>
+        <button class="btn" onclick="document.location.reload(true)">Reset</button>
+    </div>
+       <br><br>
+  
+  <div id="flex-container">
+      <div id="city-coordinates"></div>
+
+    <table id="one">
+        <tr>
+            <th>Variable</th>
+            <th>Value</th> 
+        </tr>
+        <tr>
+            <td>Number of cities</td>
+            <td><input type="text" autocomplete="off" id="numCities" value='20'></td>
+        </tr>
+        <tr>
+            <td>Number of Nodes</td>
+            <td><input type="text" autocomplete="off" id="numNodes" value='40'></td>
+        </tr>
+        <tr>
+            <td>Number of iterations</td>
+            <td><input type="text" autocomplete="off" id="numIter" value='20'></td>
+        </tr>
+        <tr>
+            <td>City Step Size</td>
+            <td><input type="text" autocomplete="off" id="cityStep" value='1'></td>
+        </tr>
+        <tr>
+            <td>Iteration step size</td>
+            <td><input type="text" autocomplete="off" id="iterStep" value='1'></td>
+        </tr>
+    </table>
+    <div id="weight-coordinates"></div> 
+  </div> 
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+*{
+    font-family:sans-serif;
+  }
+  
+
+  body{
+    background-image: url(https://bbl.solutions/wp-content/uploads/2014/11/Blog-background-white-HNM-blue-gradient-blue-gear-2.png);
+    background-size: cover;
+     background-position: center;
+  }
+  
+  #heading{
+      background-color: lightblue;
+      color:white;
+      text-align: center;
+      border-style: solid;
+    padding-top:10px;
+    padding-bottom:10px;
+   }
+  
+   .styleSelect{
+    background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9LmNscy0ye2ZpbGw6IzQ0NDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPmFycm93czwvdGl0bGU+PHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iNC45NSIgaGVpZ2h0PSIxMCIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIxLjQxIDQuNjcgMi40OCAzLjE4IDMuNTQgNC42NyAxLjQxIDQuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMy41NCA1LjMzIDIuNDggNi44MiAxLjQxIDUuMzMgMy41NCA1LjMzIi8+PC9zdmc+) no-repeat 100% 50%;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0px;
+    appearance: none;
+    outline-width: 0;
+    border: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color:lightblue;
+      text-align: center;
+      background-origin: padding-box;
+       border-radius:10px;
+       margin-right: 15px;
+   }
+  
+  .my-button {
+      border: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color:lightblue;
+      text-align: center;
+      background-origin: padding-box;
+       border-radius:10px;
+       margin-right: 15px;
+    }
+  .my-button:hover{
+    background:orange;
+  }
+  
+    #centre_button{
+        text-align: center;
+    }
+  
+  #flex-container{
+    display:flex;
+    flex-direction:row-reverse;
+    justify-content:space-around;
+    align-content:center;
+  }
+  
+  table,th,td{
+  border:1px solid lightblue;
+    border-collapse: collapse;
+  }
+  
+  td{
+    height:30px;
+    padding:5px;
+  }
+  
+  input{
+    border:none;
+  }
+  
+  input:hover{
+    background:lightCyan;
+  }
+  
+  #one{
+    margin-bottom:20px;
+    
+  }
+  
+  .counter-section {
+    
+    
+    margin: 0% auto;
+    color: black;
+  }
+
+  .icon-box{
+    
+    height: 80px;
+    width: 80px;
+    margin:5px auto;
+    
+  }
+
+  .icon-box .fa{
+    font-size: 40px;
+    margin: 25px auto;
+    color: #ffc800;
+    
+  }
+
+  .icon-box .fas{
+    font-size: 40px;
+    margin: 25px auto;
+    color: #ffc800;
+  }
+
+  .counter-box p{
+    font-size: 20px;
+  }
+
+  .counter-box  .counter {
+    font-size: 40px;
+  }

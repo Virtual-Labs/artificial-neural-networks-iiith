@@ -1,0 +1,505 @@
+{
+
+    "artciles": [
+
+        {
+
+            "quiztitle":"Quiz for Experiment",
+
+            "containers":"5"
+
+        },
+
+        {
+
+            "q": "CSNN model works even if the knowledge possessed is partially erroneous",
+
+            "option": [
+
+                "True",
+
+                "False"
+            ],
+
+            "answer": "True",
+
+            "description": "we attempt to build concepts or arrive at conclusions based on some limited, partial, and sometimes partially erroneous knowledge."
+
+        },
+
+        {
+
+            "q": "What kind of constraints does CSNN model operate on?",
+
+            "option": [
+
+                "few strong constraints",
+
+                "many weak constraints",
+
+                "combination of both weak and strong consraints"
+
+            ],
+
+            "answer": "many weak constraints",
+
+            "description": "The key idea in this model is that a large number of weak constraints together will evolve into a definitive conclusion."
+
+        },
+
+        {
+
+            "q": "which of these is an example of our brain exhibiting CSNN?",
+
+            "option": [
+
+                "being reminded of other memories by something such as smell",
+
+                "recognition of handwritten characters",
+
+                "none of the above"
+
+            ],
+
+            "answer": "recognition of handwritten characters",
+
+            "description": "memories due to another memory or sense is IAC."
+
+        },
+
+        {
+
+            "q": "how does our brain react when we attempt to read a new handwritten character",
+
+            "option": [
+
+                "tries to satisfy as many weak constraints as it can and arrive at a conclusion",
+
+                "remembers every time youv've read a character and tries to arrive at a conclusion",
+
+                "perfroms competition between each character with different characters"
+
+            ],
+
+            "answer": "tries to satisfy as many weak constraints as it can and arrive at a conclusion",
+
+            "description": "the samples of a handwritten character we may have captured a large number of weak evidence of features in our memory, so that with a new sample as input, the memory relaxes to a state that satisfies as many constraints as possible to the maximum extent."
+
+        },
+
+        {
+
+            "q": "What do 'units' represent in the PDP model of CSNN",
+
+            "option": [
+
+                "Hypotheses",
+
+                "Knowledge",
+
+                "none of the above"
+
+            ],
+
+            "answer": "Hypotheses",
+
+            "description": "In this model the units represent hypotheses and the connections represent the knowledge in the form of constraints between any two hypotheses."
+
+        },
+
+        {
+
+            "q": "What do 'connections' represent in the PDP model of CSNN",
+
+            "option": [
+
+                "Hypotheses",
+
+                "Knowledge",
+
+                "none of the above"
+            ],
+
+            "answer": "Knowledge",
+
+            "description": "In this model the units represent hypotheses and the connections represent the knowledge in the form of constraints between any two hypotheses."
+
+        },
+
+        {
+
+            "q": "What is the solution for a CSNN",
+
+            "option": [
+
+                "When each constraint is satisfied",
+
+                "When as many constraints as possible are satisfied simultaneously",
+
+                "when the 'knowledge' is complete"
+
+            ],
+
+            "answer": "When as many constraints as possible are satisfied simultaneously",
+
+            "description": "theory"
+
+        },
+
+        {
+
+            "q": "what is the purpose of 'goodness-of-fit' function?",
+
+            "option": [
+
+                "if goodness of fit function is minimum, CSNN is at equilibrium",
+
+                "if goodness of fit function is minimum, CSNN is at equilibrium",
+
+                "to evaluate the degree of satisfaction at any given cycle"
+
+            ],
+
+            "answer": "to evaluate the degree of satisfaction at any given cycle",
+
+            "description": "theory"
+
+        },
+
+        {
+
+            "q": "what does goodness-of-fit function depend on?",
+
+            "option": [
+
+                "output values of units",
+
+                "weights",
+
+                "both"
+
+            ],
+
+            "answer": "both",
+
+            "description": "theory"
+
+        },
+
+        {
+
+            "q": "what is the format for output of unit?",
+
+            "option": [
+
+                "binary values",
+
+                "continuous values",
+
+                "multiple discrete values"
+
+            ],
+
+            "answer": "binary values",
+
+            "description": "The output of a unit is binary indicating whether the description is present or not."
+
+        },
+
+        {
+
+            "q": "How are the connection weights between units derived?",
+
+            "option": [
+
+                "according to number of rooms descriptor is present in",
+
+                "co-occurence pattern of descriptors",
+
+                "according to the clamping"
+
+            ],
+
+            "answer": "co-occurence pattern of descriptors",
+
+            "description": "The connection weights between units are derived fiom the co-occurrence patterns of the descriptors in the responses of the subjects for all the room types."
+
+        },
+
+        {
+
+            "q": "(weight)ij and (weight)ji is not the same." ,
+
+            "option": [
+
+                "true",
+
+                "false"
+
+            ],
+
+            "answer": "false",
+
+            "description": "the weights are symmetric weights."
+
+        },
+
+        {
+
+            "q": "In the formulae for weights, what does the numerator represent?",
+
+            "option": [
+
+                "product of probabilities that the hypotheses of the units i and j are competing with each other",
+
+                "product of probabilities that the hypotheses of units i and j support each other",
+
+                "bias value"
+
+            ],
+
+            "answer": "product of probabilities that the hypotheses of the units i and j are competing with each other",
+
+            "description": "theory"
+
+        },
+
+        {
+
+            "q": "In the formulae for weights, what does the denominator represent?",
+
+            "option": [
+
+                "product of probabilities that the hypotheses of the units i and j are competing with each other",
+
+                "product of probabilities that the hypotheses of units i and j support each other",
+
+                "bias value"
+
+            ],
+
+            "answer": "product of probabilities that the hypotheses of units i and j support each other",
+
+            "description": "theory"
+
+        },
+
+        {
+
+            "q": "In the formulae for weights, what happens if supporting hypotheses is greater than competing?",
+
+            "option": [
+
+                "weights are +ve",
+
+                "weights are -ve",
+
+                "weights are 0"
+
+            ],
+
+            "answer": "weights are +ve",
+
+            "description": "theory"
+
+        },
+
+        {
+
+            "q": "In the formulae for weights, what happens if competing hypotheses is greater than supporting?",
+
+            "option": [
+
+                "weights are +ve",
+
+                "weights are -ve",
+
+                "weights are 0"
+
+            ],
+
+            "answer": "weights are -ve",
+
+            "description": "theory"
+
+        },
+
+        {
+
+            "q": "In the formulae for weights, what happens if competing hypotheses is equal to supporting?",
+
+            "option": [
+
+                "weights are +ve",
+
+                "weights are -ve",
+
+                "weights are 0"
+
+            ],
+
+            "answer": "weights are 0",
+
+            "description": "theory"
+
+        },
+
+        {
+
+            "q": "what can probabiltity be replaced with in the formula for (weight)ij",
+
+            "option": [
+
+                "cumulative frequency",
+
+                "relative frequency",
+
+                "bivariate frequency"
+
+            ],
+
+            "answer": "relative frequency",
+
+            "description": "relative frequency in the data replicates probability"
+
+        },
+
+        {
+
+            "q": "what is the need for a bias in units?",
+
+            "option": [
+
+                "to account for external input",
+
+                "to account for differences in weight",
+
+                "to account for prior information about the hypothesis"
+
+            ],
+
+            "answer": "to account for prior information about the hypothesis",
+
+            "description": "each unit can have a bias reflecting the prior information about the hypothesis the unit represents."
+
+        },
+
+        {
+
+            "q": "which of these external input types is possible?",
+
+            "option": [
+
+                "clamping of unit, i.e. either 'on' or 'off'",
+
+                "graded input indicating weak constraint",
+
+                "both"
+
+            ],
+
+            "answer": "both",
+
+            "description": "The corresponding input unit could be clamped indicating that the hypothesis is either always 'on' or always 'off. Other types of external input could be a graded one indicating a weak constraint."
+
+        },
+
+        {
+
+            "q": "next state is calculated by computing sum of its weighted inputs and thresholding the weighted sum using a hard-limiting output function.",
+
+            "option": [
+
+                "true",
+
+                "false"
+
+            ],
+
+            "answer": "true",
+
+            "description": "theory"
+
+        },
+
+        {
+
+            "q": "goodness-of-fit function contains the variables:",
+
+            "option": [
+
+                "wij,xi,xj,ei,bi",
+
+                "wij,xi,xj",
+
+                "wij,ei,bi"
+
+            ],
+
+            "answer": "wij,xi,xj,ei,bi",
+
+            "description": "theory"
+
+        },
+
+        {
+
+            "q": "which dimension space does the model capture for relative separation",
+
+            "option": [
+
+                "40-dimensional space",
+
+                "3-dimensional space",
+
+                "2-dimensional space"
+
+            ],
+
+            "answer": "40-dimensional space",
+
+            "description": "The model not only captures the concepts of the room types, but it also gives an idea of their relative separation in the 40 dimensional space."
+
+        },
+
+        {
+
+            "q": "each peak of the goodness-of-fit function represents a room type.",
+
+            "option": [
+
+                "true",
+
+                "false"
+
+            ],
+
+            "answer": "false",
+
+            "description": "The model will have several other equilibrium states corresponding to some local peaks of the goodness-of-fit function. These peaks do not correspond to the room types intended to be captured by the model fiom the data"
+
+        },
+
+        {
+
+            "q": "what form is the knowledge to be represented in problem domain?",
+
+            "option": [
+
+                "in terms of weight",
+
+                "in terms of activations",
+
+                "in terms of activation"
+
+            ],
+
+            "answer": "in terms of weight",
+
+            "description": "The objective is to represent somehow the knowledge of the problem domain in the form of weights."
+
+        }
+
+    ]
+
+}

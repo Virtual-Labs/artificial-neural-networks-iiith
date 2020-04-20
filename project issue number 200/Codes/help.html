@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HELP</title>
+    <link rel="stylesheet" type="text/css" href="help.css">
+</head>
+
+<body>
+    <h1 id="heading">HELP</h1>
+    <p>
+        An interactive activation and competition network consists of a collection of processing units organized into some number of competitive pools. There are excitatory connections among units in different pools and inhibitory connections among units within the same pool. The excitatory connections between pools are generally bidirectional, thereby making the processing interactive in the sense that processing in each pool both influences and is influenced by processing in other pools. Within a pool, the inhibitory connections are usually assumed to run from each unit in the pool to every other unit in the pool. This implements a kind of competition among the units such that the unit or units in the pool that receive the strongest activation tend to drive down the activation of the other units. 
+    </p>
+    <h3>Procedure for use</h3>
+        <ol id="ol">
+            <li> Observe the bottom of the simulator to know which cycle number is going on and to see the g-delta plot and global change value.</li>
+            <br>
+            <li>  hover your mouse over any component to highlight the component and see it's excitatory and inhibitory connections with other units. The activation and net input of that unit is displayed on top left.</li>
+            <br>
+            <li> Click on any unit (except in the instance pool) to give external input to that unit and activate it.</li>
+            <br>
+            <li>  Observe how activation of that unit affects the other units activation and net inputs.</li>
+            <br>
+            <li> Also observe how the global change spikes in the few cycles after giving external input to a unit.</li>
+            <br>
+            <li> Click on same unit to take away the external input given to that unit.</li>
+            <br>
+            <li> Observe how the residual net input remains even after removing external input.</li>
+            <br>
+            <li> Press spacebar to pause the simulator in current cycle. Press spacebar again to resume cycles.</li>
+            <br>
+            <li> In paused position, hover over units whose activation data you want. In paused position, cycle will be stopped and giving external input will be disallowed.</li>
+            <br>
+            <li>  Press r to reset the simulator with the same values just used in the simulator. </li>
+            <br>
+            <li> Press s to activate slow motion mode which performs cycles slower than actual speed to get a closer look at how the values of the units change. Press s again to resume real speed cycle change.</li>
+            <br>
+            <li> Change the values of the variables in the table ( in range of (original value - 0.5) to (original value + 0.5) ) and click on set values and restart to start new set of cycles with changed values of variables.</li>
+            <br>
+            <li> Click on Reset original values and restart to start new set of cycles with original values of variables.</li>
+        </ol>
+    <h3>Formulae Used</h3>
+    <p>
+        if weights between i'th and j'th components is +ve,<br>
+q = weight * activation<br>
+excitation += q for all units.<br><br> 
+
+if weights between i'th and j'th components is -ve,<br>
+q = weight * activation<br>
+inhibition += q for all units.<br><br>
+
+net input = (estr * external input) + (beta * excitation) + (gamma * inhibition)
+<br>
+delta excitation = (actmax - activation) * net input - decay * (activation - actrest)<br>
+activation += delta excitation<br>
+g Delta = g Delta + absolute(delta excitation)<br><br>
+
+delta inhibition = (activation - actmin) * net input - decay * (activation - actrest);<br>
+activation += delta inhibition;<br>
+g Delta = g Delta + absolute(delta inhibiton);<br><br>
+  For more information and help regarding IAC, click <a href="https://web.stanford.edu/group/pdplab/pdphandbook/handbookch3.html">here</a>  
+  </p>
+</body>
+
+</html>

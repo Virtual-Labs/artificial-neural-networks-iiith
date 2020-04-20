@@ -1,0 +1,259 @@
+{
+    "artciles": [
+        {
+            "quiztitle": "Quiz for Experiment",
+            "containers": "5"
+        },
+        {
+            "q": "does one region produce same feature mapping everytime",
+            "option": [
+                "yes",
+                "no"
+            ],
+            "answer": "no",
+            "description": "practical"
+        },
+        {
+            "q": "does increasing learning rate increase speed of mapping?",
+            "option": [
+                "yes",
+                "no",
+                "not always"
+            ],
+            "answer": "yes",
+            "description": "theory"
+        },
+        {
+            "q": "Which is more accurate?",
+            "option": [
+                "higher learning rate",
+                "lower learning rate"
+            ],
+            "answer": "lower learning rate",
+            "description": "formula"
+        },
+        {
+            "q": "does total number of iterations affect the weights?",
+            "option": [
+                "Yes",
+                "no"
+            ],
+            "answer": "yes",
+            "description": "sigma and learning rate both"
+        },
+        {
+            "q": "which of the following is affected by iteration step",
+            "option": [
+                "sigma",
+                "learning rate",
+                "none of the above"
+            ],
+            "answer": "none of the above",
+            "description": "only total iterations affects both."
+        },
+        {
+            "q": "How are input layer units connected to second layer in competitive learning networks?",
+            "option": [
+                "feedforward manner",
+                "feedback manner",
+                "feedforward and feedback"
+            ],
+            "answer": "feedforward manner",
+            "description": "The output of input layer is given to second layer with adaptive feedforward weights."
+        },
+        {
+            "q": "Which layer has feedback weights in competitive neural networks?",
+            "option": [
+                "input layer",
+                "second layer",
+                "both"
+            ],
+            "answer": "second layer",
+            "description": "Second layer has weights which gives feedback to the layer itself."
+        },
+        {
+            "q": "What is the nature of general feedback given in competitive neural networks?",
+            "option": [
+                "self excitatory",
+                "self inhibitory",
+                "none of the above"
+            ],
+            "answer": "self excitatory",
+            "description": "The output of each unit in second layer is fed back to itself in self – excitatory manner."
+        },
+        {
+            "q": "What consist of competitive learning neural networks?",
+            "option": [
+                "feedforward paths",
+                "feedback paths",
+                "combination of feedforward and feedback"
+            ],
+            "answer": "combination of feedforward and feedback",
+            "description": "theory"
+        },
+        {
+            "q": "What conditions are must for competitive network to perform pattern clustering?",
+            "option": [
+                "non linear output layers",
+                "connection to neighbours is excitatory and to the farther units inhibitory",
+                "on centre off surround connections",
+                "none of the above"
+            ],
+            "answer": "none of the above",
+            "description": "If the output functions of units in feedback laye are made non-linear , with fixed weight on-centre off-surround connections, the pattern clustering can be performed."
+        },
+        {
+            "q": "What conditions are must for competitive network to perform feature mapping?",
+            "option": [
+                "non linear output layers",
+                "connection to neighbours is excitatory and to the farther units inhibitory",
+                "on centre off surround connections",
+                "all of the above"
+            ],
+            "answer": "all of the above",
+            "description": "theory"
+        },
+        {
+            "q": "If a competitive network can perform feature mapping then what is that network can be called?",
+            "option": [
+                "self excitatory",
+                "self inhibitory",
+                "self organization",
+                "none of the mentioned"
+            ],
+            "answer": "self organization",
+            "description": "Competitive network that can perform feature mapping can be called as self organization network."
+        },
+        {
+            "q": "What is an instar?",
+            "option": [
+                "receives inputs from all others",
+                "gives output to all others",
+                "may receive or give input or output to others"
+            ],
+            "answer": "receives inputs from all others",
+            "description": "theory"
+        },
+        {
+            "q": "How is weight vector adjusted in basic competitive learning?",
+            "option": [
+                "such that it moves towards the input vector",
+                "such that it moves away from input vector",
+                "such that it moves towards the output vector",
+                "such that it moves away from output vector"
+            ],
+            "answer": "such that it moves towards the input vector",
+            "description": "theory"
+        },
+        {
+            "q": "The update in weight vector in basic competitive learning can be represented by?",
+            "option": [
+                "w(t + 1) = w(t) + del.w(t)",
+                "w(t + 1) = w(t)",
+                "w(t + 1) = w(t) – del.w(t)"
+            ],
+            "answer": "w(t + 1) = w(t) + del.w(t)",
+            "description": "The update in weight vector in basic competitive learning can be represented by w(t + 1) = w(t) + del.w(t)."
+        },
+        {
+            "q": "Can all hard problems be handled by a multilayer feedforward neural network, with nonlinear units?",
+            "option": [
+                "yes",
+                "no"
+            ],
+            "answer": "yes",
+            "description": "theory"
+        },
+        {
+            "q": "What is a mapping problem?",
+            "option": [
+                "when no restrictions such as linear separability is placed on the set of input – output pattern pairs",
+                "when there may be restrictions such as linear separability placed on input – output patterns",
+                "when there are restriction but other than linear separability"
+            ],
+            "answer": "when no restrictions such as linear separability is placed on the set of input – output pattern pairs",
+            "description": "Its a more general case of classification problem."
+        },
+        {
+            "q": "Can mapping problem be a more general case of pattern classification problem?",
+            "option": [
+                "yes",
+                "no"
+            ],
+            "answer": "yes",
+            "description": "Since no restrictions such as linear separability is placed on the set of input – output pattern pairs, mapping problem becomes a more general case of pattern classification problem."
+        },
+        {
+            "q": "What is the objective of pattern mapping problem?",
+            "option": [
+                "to capture weights for a link",
+                "to capture inputs",
+                "to capture feedbacks",
+                "to capture implied function"
+            ],
+            "answer": "to capture implied function",
+            "description": "The objective of pattern mapping problem is to capture implied function."
+        },
+        {
+            "q": "To provide generalization capability to a network, what should be done?",
+            "option": [
+                "all units should be linear",
+                "all units should be non – linear",
+                "except input layer, all units in other layers should be non – linear"
+            ],
+            "answer": "except input layer, all units in other layers should be non – linear",
+            "description": "theory"
+        },
+        {
+            "q": "What is the objective of pattern mapping problem?",
+            "option": [
+                "to capture implied function",
+                "to capture system characteristics from observed data",
+                "both to implied function and system characteristics",
+                "none of the mentioned"
+            ],
+            "answer": "none of the mentioned",
+            "description": "The implied fuction is all about system characteristics."
+        },
+        {
+            "q": "Does an approximate system produce strictly an interpolated output?",
+            "option": [
+                "yes",
+                "no"
+            ],
+            "answer": "no",
+            "description": "theory"
+        },
+        {
+            "q": "The nature of mapping problem decides?",
+            "option": [
+                "number of units in second layer",
+                "number of units in third layer",
+                "overall number of units in hidden layers"
+            ],
+            "answer": "overall number of units in hidden layers",
+            "description": "The nature of mapping problem decides overall number of units in hidden layers."
+        },
+        {
+            "q": "How is hard learning problem solved?",
+            "option": [
+                "using nonlinear differentiable output function for output layers",
+                "using nonlinear differentiable output function for hidden layers",
+                "using nonlinear differentiable output function for output and hidden layers"
+            ],
+            "answer": "using nonlinear differentiable output function for output and hidden layers",
+            "description": "theory"
+        },
+        {
+            "q": "The number of units in hidden layers depends on?",
+            "option": [
+                "the number of inputs",
+                "the number of outputs",
+                "both the number of inputs and outputs",
+                "the overall characteristics of the mapping problem"
+            ],
+            "answer": "the overall characteristics of the mapping problem",
+            "description": "Theory"
+        }
+    ]
+}
